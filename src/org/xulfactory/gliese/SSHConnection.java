@@ -31,21 +31,20 @@ public class SSHConnection
 	private SSHTransport transport;
 	private SSHAuthentication authentication;
 
-	SSHConnection(String host, int port)
-		throws IOException, SSHException, SSHTimeoutException
+	SSHConnection(String host, int port) throws IOException, SSHException
 	{
 		this(host, port, new DefaultAlgorithms(), null);
 	}
 
 	SSHConnection(String host, int port, HostKeyVerifier hv)
-		throws IOException, SSHException, SSHTimeoutException
+		throws IOException, SSHException
 	{
 		this(host, port, new DefaultAlgorithms(), hv);
 	}
 
 	SSHConnection(String host, int port, SSHAlgorithms algos,
 		HostKeyVerifier hv)
-		throws IOException, SSHException, SSHTimeoutException
+		throws IOException, SSHException
 	{
 		GlieseLogger.LOGGER.info("Starting transport layer.");
 		transport = new SSHTransport(host, port, algos, hv);

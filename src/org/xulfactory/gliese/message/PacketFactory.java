@@ -17,7 +17,6 @@
 package org.xulfactory.gliese.message;
 
 import org.xulfactory.gliese.SSHException;
-import org.xulfactory.gliese.SSHTimeoutException;
 import org.xulfactory.gliese.util.Utils;
 import org.xulfactory.gliese.util.GlieseLogger;
 
@@ -29,9 +28,6 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
 
@@ -48,11 +44,6 @@ public class PacketFactory
 	private final SSHInputStream in;
 	private final SSHOutputStream out;
 	private Random rnd;
-	private final BlockingQueue<SSHMessage> outQueue;
-	private final BlockingQueue<SSHMessage> inQueue;
-	private boolean isClosed;
-	private boolean inCrytoUpdated = true;
-	private boolean outCrytoUpdated = true;
 	private int blockSizeCS = 8;
 	private int blockSizeSC = 8;
 
@@ -64,13 +55,9 @@ public class PacketFactory
 	 */
 	public PacketFactory(InputStream in, OutputStream out)
 	{
-		//this.oin = new BufferedInputStream(in);
-		this.oin = in;
-		this.inQueue = new ArrayBlockingQueue<SSHMessage>(1024);
-		this.outQueue = new ArrayBlockingQueue<SSHMessage>(1024);
+		this.oin = new BufferedInputStream(in);
 		this.in = new SSHInputStream(oin);
-		//this.oout = new BufferedOutputStream(out);
-		this.oout = out;
+		this.oout = new BufferedOutputStream(out);
 		this.out = new SSHOutputStream(oout);
 		this.rnd = new Random();
 		this.types = new HashMap<Integer, Class<? extends SSHMessage>>();
@@ -109,21 +96,13 @@ public class PacketFactory
 	}
 
 	/**
-	 * Starts the input and output threads.
-	 */
-	public void start()
-	{
-		(new InputThread()).start();
-		(new OutputThread()).start();
-	}
-
-	/**
 	 * Reads a SSH packet and decodes the message.
 	 *
 	 * @return  the decoded mssage
 	 * @throws IOException  if an error occurred while reading the stream
 	 */
-	private SSHMessage readPacket() throws IOException, SSHException
+	private synchronized SSHMessage readPacket()
+		throws IOException, SSHException
 	{
 		in.intialize();
 		int plen = Utils.decodeInt(in);
@@ -137,9 +116,10 @@ public class PacketFactory
 		try {
 			msg = klass.newInstance();
 			msg.decode(new PayloadInputStream(in, plen - padlen - 2));
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Error(e);
+		} catch (IllegalAccessException iae) {
+			throw new SSHException("Unable to create message", iae);
+		} catch (InstantiationException ie) {
+			throw new SSHException("Unable to create message", ie);
 		}
 		Utils.decodeBytes(in, padlen);
 		if (!in.checkMac()) {
@@ -147,15 +127,14 @@ public class PacketFactory
 				writeMessage(new DisconnectMessage(
 					DisconnectMessage.MAC_ERROR,
 					"Bad MAC on input", null));
-			} catch (SSHTimeoutException te) {
+			} catch (SSHException se) {
 			}
-			GlieseLogger.LOGGER.error("Bad MAC on input");
 			throw new SSHException("Bad MAC on input");
 		}
 		return msg;
 	}
 
-	private void writePacket(SSHMessage msg) throws IOException
+	private synchronized void writePacket(SSHMessage msg) throws IOException
 	{
 		out.intialize();
 		byte[] msgEnc = msg.encode();
@@ -174,36 +153,27 @@ public class PacketFactory
 		out.flush();
 	}
 
-	public void newKeys(Cipher ccs, Cipher csc, Mac mcs, Mac msc)
+	public synchronized void newKeys(Cipher ccs, Cipher csc, Mac mcs, Mac msc)
 	{
 		blockSizeCS = ccs.getBlockSize();
 		blockSizeSC = csc.getBlockSize();
-		synchronized(in) {
-			in.updateCrypto(csc, msc);
-			inCrytoUpdated = true;
-			in.notifyAll();
-		}
-		synchronized(out) {
-			out.updateCrypto(ccs, mcs);
-			outCrytoUpdated = true;
-			out.notifyAll();
-		}
+		in.updateCrypto(csc, msc);
+		out.updateCrypto(ccs, mcs);
 	}
 
-	public void writeMessage(SSHMessage msg) 
-		throws SSHException, SSHTimeoutException
+	public synchronized void writeMessage(SSHMessage msg)
+		throws SSHException
 	{
 		try {
-			if (!outQueue.offer(msg, 5, TimeUnit.SECONDS)) {
-				throw new SSHTimeoutException("Timeout");
-			}
-		} catch (InterruptedException ex) {
-			throw new SSHTimeoutException("Interrupted");
+			writePacket(msg);
+			GlieseLogger.LOGGER.debug("Sent message: " + msg);
+		} catch (IOException ioe) {
+			throw new SSHException("I/O exception on write", ioe);
 		}
 	}
 
-	public SSHMessage readMessage(int... ids) 
-		throws SSHException, SSHTimeoutException
+	public synchronized SSHMessage readMessage(int... ids)
+		throws SSHException
 	{
 		SSHMessage m = readMessage();
 		for (int id: ids) {
@@ -211,129 +181,17 @@ public class PacketFactory
 				return m;
 			}
 		}
-		GlieseLogger.LOGGER.error("Unexpected message type: " + m.getID());
 		throw new SSHException("Unexpected message type: " + m.getID());
 	}
 
-	public SSHMessage readMessage() throws SSHException, SSHTimeoutException
+	public synchronized SSHMessage readMessage() throws SSHException
 	{
 		try {
-			SSHMessage m = inQueue.poll(500, TimeUnit.SECONDS);
-			if (m == null) {
-				throw new SSHTimeoutException("Timeout on read");
-			}
-			return m;
-		} catch (InterruptedException ex) {
-			throw new SSHTimeoutException("Interrupted");
-		}
-	}
-
-	private class InputThread extends Thread
-	{
-		public InputThread()
-		{
-			super("Input");
-		}
-
-		@Override
-		public void run()
-		{
-			while (!isClosed) {
-				try {
-					run0();
-				} catch (IOException ioe) {
-					handleError(ioe);
-				} catch (SSHException se) {
-					handleError(se);
-				}
-			}
-		}
-
-		private void handleError(Throwable t)
-		{
-			try {
-				isClosed = true;
-				oin.close();
-				oout.close();
-				GlieseLogger.LOGGER.error("I/O error on read", t);
-			} catch (IOException ioe) {
-				// ignore
-			}
-		}
-
-		private void run0() throws IOException, SSHException
-		{
 			SSHMessage m = readPacket();
 			GlieseLogger.LOGGER.debug("Received message: " + m);
-			try {
-				inQueue.put(m);
-			} catch (InterruptedException ex) {
-				// When it occurs, we are in serious trouble.
-			}
-			if (m.getID() == NewKeysMessage.ID) {
-				/* Wait for crypto update */
-				synchronized(in) {
-					inCrytoUpdated = false;
-					while (!inCrytoUpdated) {
-						try {
-							in.wait();
-						} catch (InterruptedException ex) {
-						}
-					}
-				}
-			}
-		}
-	}
-
-	private class OutputThread extends Thread
-	{
-		public OutputThread()
-		{
-			super("Output");
-		}
-
-		@Override
-		public void run()
-		{
-			while (!isClosed) {
-				try {
-					run0();
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-					isClosed = true;
-				}
-			}
-		}
-
-		private void run0() throws IOException
-		{
-			SSHMessage m = null;
-			while (true) {
-				try {
-					m = outQueue.poll(100, TimeUnit.MILLISECONDS);
-					if (m != null) {
-						break;
-					}
-					if (isClosed) {
-						return;
-					}
-				} catch (InterruptedException ex) {
-					// ignore
-				}
-			}
-			writePacket(m);
-			GlieseLogger.LOGGER.debug("Sent message: " + m);
-			if (m.getID() == NewKeysMessage.ID) {
-				synchronized(out) {
-					outCrytoUpdated = false;
-					while (!outCrytoUpdated) {
-						try {
-							out.wait();
-						} catch (InterruptedException ex) {
-						}
-					}
-				}
-			}
+			return m;
+		} catch (IOException ioe) {
+			throw new SSHException("I/O error on read", ioe);
 		}
 	}
 }

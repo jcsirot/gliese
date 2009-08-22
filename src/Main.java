@@ -27,7 +27,6 @@ import org.xulfactory.gliese.Gliese;
 import org.xulfactory.gliese.SSHConnection;
 import org.xulfactory.gliese.SSHException;
 import org.xulfactory.gliese.SSHRSAPublicKey;
-import org.xulfactory.gliese.SSHTimeoutException;
 import org.xulfactory.gliese.util.GlieseLogger;
 
 /**
@@ -41,7 +40,7 @@ public class Main
 	private static final BigInteger N = new BigInteger("968ce895264e6f73cfcc6df88ad9ad4a39a4af08b16fba4be48d221af26551fdd72add8167c087d626ebf659cb03816f06965b11b5da5b9bedd88e45c170928101aeb7d95980c12a0c76af6f4ac1d9ca7099c2279769e6da19eb93c43f83bf56a529666d84c3213f853c6cf5010ca02c3501e747a2214f4a5c9610659f2bf0d3", 16);
 
 	public static void main(String[] args)
-		throws IOException, SSHException, SSHTimeoutException
+		throws IOException, SSHException
 	{
 		GlieseLogger.LOGGER.setLevel(GlieseLogger.DEBUG);
 		try {

@@ -145,7 +145,7 @@ public class SSHTransport
 		this.hv = hv != null ? hv : new ConsoleHostKeyVerifier();
 	}
 
-	void openConnection() throws SSHException, SSHTimeoutException
+	void openConnection() throws SSHException
 	{
 		try {
 			initConnection();
@@ -201,10 +201,9 @@ public class SSHTransport
 		out.write('\n');
 		out.flush();		
 		factory = new PacketFactory(in, out);
-		factory.start();
 	}
 
-	private void exchangeKey() throws SSHException, SSHTimeoutException
+	private void exchangeKey() throws SSHException
 	{
 		KexInitMessage clientKex = new KexInitMessage();
 		byte[] cookie = new byte[16];
@@ -408,10 +407,9 @@ public class SSHTransport
 	 * Sends a message to the server.
 	 *
 	 * @param msg  the message
-	 * @throws SSHTimeoutException
+	 * @throws SSHException on error
 	 */
-	public void writeMessage(SSHMessage msg) 
-		throws SSHException, SSHTimeoutException
+	public void writeMessage(SSHMessage msg) throws SSHException
 	{
 		factory.writeMessage(msg);
 	}
@@ -422,12 +420,10 @@ public class SSHTransport
 	 *
 	 * @param ids the list of expected message id
 	 * @return the message
-	 * @throws SSHException if the read message id is not among the
-	 *         expected ids
-	 * @throws SSHTimeoutException if timeout is reached
+	 * @throws SSHException if an error occurred or the read message
+	 *         ID is not among the expected IDs
 	 */
-	public SSHMessage readMessage(int... ids)
-		throws SSHException, SSHTimeoutException
+	public SSHMessage readMessage(int... ids) throws SSHException
 	{
 		return factory.readMessage(ids);
 	}
@@ -439,7 +435,7 @@ public class SSHTransport
 	 * @return the message
 	 * @throws SSHTimeoutException if timeout is reached
 	 */
-	public SSHMessage readMessage() throws SSHException, SSHTimeoutException
+	public SSHMessage readMessage() throws SSHException
 	{
 		SSHMessage m;
 		do {

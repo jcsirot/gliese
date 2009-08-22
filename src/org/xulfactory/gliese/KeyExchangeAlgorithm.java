@@ -35,11 +35,10 @@ public interface KeyExchangeAlgorithm extends SSHAlgorithm
 	 * @param pkf  the host public key factory
 	 * @param verifier   the host public key verifier
 	 * @throws SSHException
-	 * @throws SSHTimeoutException
 	 */
 	void process(SSHTransport transport, SSHPublicKeyFactory pkf,
 		HostKeyVerifier verifier)
-		throws SSHException, SSHTimeoutException;
+		throws SSHException;
 
 	BigInteger getSharedSecret();
 
