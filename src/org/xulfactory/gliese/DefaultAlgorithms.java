@@ -19,8 +19,6 @@ package org.xulfactory.gliese;
 
 import java.util.Arrays;
 import java.util.List;
-import org.xulfactory.gliese.CipherAlgorithm.BaseCipherAlgorithm;
-import org.xulfactory.gliese.MacAlgorithm.BaseMacHandler;
 
 /**
  * Default built-in configuration.
@@ -36,17 +34,17 @@ class DefaultAlgorithms implements SSHAlgorithms
 		}
 	);
 
-	private static final List<CipherAlgorithm> ENCRYPTION_ALGORITHMS =
-		Arrays.asList(new CipherAlgorithm[] {
+	private static final List<BaseCipherAlgorithm> ENCRYPTION_ALGORITHMS =
+		Arrays.asList(new BaseCipherAlgorithm[] {
 			new BaseCipherAlgorithm("aes128-cbc", "AES/CBC/NoPadding", "AES", 16, 16),
-			new BaseCipherAlgorithm("3des-cbc", "DESede/CBC/NoPadding", "DESede", 24, 8),
+			new BaseCipherAlgorithm("3des-cbc", "DESede/CBC/NoPadding", "DESede", 8, 24),
 		}
 	);
 
 	private static final List<MacAlgorithm> MAC_ALGORITHMS =
 		Arrays.asList(new MacAlgorithm[]{
-			new BaseMacHandler("hmac-sha1", "HmacSHA1", 20, 20),
-			new BaseMacHandler("hmac-md5", "HmacMD5", 16, 16),
+			new BaseMacAlgorithm("hmac-sha1", "HmacSHA1", 20, 20),
+			new BaseMacAlgorithm("hmac-md5", "HmacMD5", 16, 16),
 		}
 	);
 
@@ -61,7 +59,7 @@ class DefaultAlgorithms implements SSHAlgorithms
 	{
 		return KEX_ALGORITHMS;
 	}
-	public List<CipherAlgorithm> getEncryptionAlgorithms()
+	public List<BaseCipherAlgorithm> getEncryptionAlgorithms()
 	{
 		return ENCRYPTION_ALGORITHMS;
 	}
