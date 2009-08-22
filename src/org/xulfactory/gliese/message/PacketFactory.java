@@ -38,7 +38,7 @@ import javax.crypto.Mac;
  */
 public class PacketFactory
 {
-	private Map<Integer, Class<? extends SSHMessage>> types;
+	private Map<String, Map<Integer, Class<? extends SSHMessage>>> types;
 	private InputStream oin;
 	private OutputStream oout;
 	private final SSHInputStream in;
@@ -60,14 +60,13 @@ public class PacketFactory
 		this.oout = new BufferedOutputStream(out);
 		this.out = new SSHOutputStream(oout);
 		this.rnd = new Random();
-		this.types = new HashMap<Integer, Class<? extends SSHMessage>>();
+		this.types = new HashMap<String, Map<Integer, Class<? extends SSHMessage>>>();
 		registerIncomingMessages();
 	}
 	
 	private void registerIncomingMessages()
 	{
 		register(KexInitMessage.class);
-		register(KexDHReplyMessage.class);
 		register(NewKeysMessage.class);
 		register(DebugMessage.class);
 		register(DisconnectMessage.class);
@@ -80,35 +79,72 @@ public class PacketFactory
 	}
 
 	/**
-	 * register a new SSH message class.
+	 * register a new SSH message class in the default namespace.
 	 *
 	 * @param klass  the message class
 	 */
 	public <T extends SSHMessage> void register(Class<T> klass)
 	{
+		register(null, klass);
+	}
+
+	/**
+	 * register a new SSH message class in the given namespace.
+	 *
+	 * @param namespace  the message namespace
+	 * @param klass  the message class
+	 */
+	public <T extends SSHMessage> void register(String namespace, Class<T> klass)
+	{
+		Map<Integer, Class<? extends SSHMessage>> map
+			= types.get(namespace);
+		if (map == null) {
+			map = new HashMap<Integer, Class<? extends SSHMessage>>();
+			types.put(namespace, map);
+		}
 		try {
 			SSHMessage message = klass.newInstance();
 			int id = message.getID();
-			types.put(id, klass);
+			map.put(id, klass);
 		} catch (InstantiationException ex) {
+			GlieseLogger.LOGGER.error("Invalid message class", ex);
 		} catch (IllegalAccessException ex) {
+			GlieseLogger.LOGGER.error("Invalid message class", ex);
 		}
+	}
+
+	private Class<? extends SSHMessage> getMessageClass(int id, String namespace)
+		throws SSHException
+	{
+		Class<? extends SSHMessage> klass = null;
+		Map<Integer, Class<? extends SSHMessage>> map
+			= types.get(namespace);
+		if (map != null) {
+			klass = map.get(id);
+		}
+		if (klass == null && namespace != null) {
+			return getMessageClass(id, null);
+		} else if (klass == null) {
+			throw new SSHException(String.format("Unsupported message type: %d", id));
+		}
+		return klass;
 	}
 
 	/**
 	 * Reads a SSH packet and decodes the message.
 	 *
+	 * @param namespace  the message decoding namespace
 	 * @return  the decoded mssage
 	 * @throws IOException  if an error occurred while reading the stream
 	 */
-	private synchronized SSHMessage readPacket()
+	private synchronized SSHMessage readPacket(String namespace)
 		throws IOException, SSHException
 	{
 		in.initialize();
 		int plen = Utils.decodeInt(in);
 		int padlen = Utils.decodeByte(in) & 0xff;
 		int msgType = Utils.decodeByte(in);
-		Class<? extends SSHMessage> klass = types.get(msgType);
+		Class<? extends SSHMessage> klass = getMessageClass(msgType, namespace);
 		if (klass == null) {
 			throw new IOException("Unsupported message type: " + msgType);
 		}
@@ -175,7 +211,13 @@ public class PacketFactory
 	public synchronized SSHMessage readMessage(int... ids)
 		throws SSHException
 	{
-		SSHMessage m = readMessage();
+		return readMessage(null, ids);
+	}
+
+	public synchronized SSHMessage readMessage(String namespace, int... ids)
+		throws SSHException
+	{
+		SSHMessage m = readMessage(namespace);
 		for (int id: ids) {
 			if (id == m.getID()) {
 				return m;
@@ -184,14 +226,20 @@ public class PacketFactory
 		throw new SSHException("Unexpected message type: " + m.getID());
 	}
 
-	public synchronized SSHMessage readMessage() throws SSHException
+	public synchronized SSHMessage readMessage(String namespace)
+		throws SSHException
 	{
 		try {
-			SSHMessage m = readPacket();
+			SSHMessage m = readPacket(namespace);
 			GlieseLogger.LOGGER.debug("Received message: " + m);
 			return m;
 		} catch (IOException ioe) {
 			throw new SSHException("I/O error on read", ioe);
 		}
+	}
+
+	public synchronized SSHMessage readMessage() throws SSHException
+	{
+		return readMessage((String)null);
 	}
 }

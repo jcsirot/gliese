@@ -51,6 +51,7 @@ import org.xulfactory.gliese.message.DisconnectMessage;
 import org.xulfactory.gliese.util.GlieseLogger;
 
 /**
+ * Handler on the transport layer.
  *
  * @author sirot
  */
@@ -407,7 +408,7 @@ public class SSHTransport
 	 * Sends a message to the server.
 	 *
 	 * @param msg  the message
-	 * @throws SSHException on error
+	 * @throws SSHException if an error occurred
 	 */
 	public void writeMessage(SSHMessage msg) throws SSHException
 	{
@@ -415,8 +416,8 @@ public class SSHTransport
 	}
 
 	/**
-	 * Reads a message from the server. Blocks until a message is
-	 * available or timeout is reached.
+	 * Reads a message from the server and checks if the message id is
+	 * among the list. Blocks until a message is available.
 	 *
 	 * @param ids the list of expected message id
 	 * @return the message
@@ -428,18 +429,24 @@ public class SSHTransport
 		return factory.readMessage(ids);
 	}
 
+	public SSHMessage readMessage(String namespace, int... ids)
+		throws SSHException
+	{
+		return factory.readMessage(namespace, ids);
+	}
+
 	/**
 	 * Reads a message from the server. Blocks until a message is
 	 * available or timeout is reached.
 	 *
 	 * @return the message
-	 * @throws SSHTimeoutException if timeout is reached
+	 * @throws SSHException if an error occurred
 	 */
-	public SSHMessage readMessage() throws SSHException
+	public SSHMessage readMessage(String namespace) throws SSHException
 	{
 		SSHMessage m;
 		do {
-			m = factory.readMessage();
+			m = factory.readMessage(namespace);
 			if (m.getID() == DisconnectMessage.ID) {
 				DisconnectMessage msg = (DisconnectMessage)m;
 				GlieseLogger.LOGGER.info("Disconnect message received: " + msg);
@@ -459,6 +466,40 @@ public class SSHTransport
 			}
 		} while (true);
 		return m;
+	}
+
+	/**
+	 * Reads a message from the server. Blocks until a message is
+	 * available.
+	 *
+	 * @return the message
+	 * @throws SSHException if an error occurred
+	 */
+	public SSHMessage readMessage() throws SSHException
+	{
+		return readMessage((String)null);
+	}
+
+	/**
+	 * Register a type of message for decoding in the default namespace.
+	 *
+	 * @param klass the message class
+	 */
+	public void registerMessageClass(Class<? extends SSHMessage> klass)
+	{
+		factory.register(klass);
+	}
+
+	/**
+	 * Register a type of message for decoding in the given namespace.
+	 *
+	 * @param namespace  the namespace
+	 * @param klass  the message class
+	 */
+	public void registerMessageClass(String namespace,
+		Class<? extends SSHMessage> klass)
+	{
+		factory.register(namespace, klass);
 	}
 
 	/**
