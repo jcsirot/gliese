@@ -25,13 +25,13 @@ import java.io.IOException;
 public final class Gliese
 {
 	public static SSHConnection openConnection(String host)
-		throws SSHException, SSHTimeoutException, IOException
+		throws SSHException, IOException
 	{
 		return openConnection(host, 22);
 	}
 
 	public static SSHConnection openConnection(String host, int port)
-			throws SSHException, SSHTimeoutException, IOException
+			throws SSHException, IOException
 	{
 		SSHConnection con = new SSHConnection(host, port);
 		return con;

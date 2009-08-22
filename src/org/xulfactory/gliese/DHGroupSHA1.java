@@ -100,7 +100,7 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 	/** @see KeyExchangeAlgorithm */
 	public void process(SSHTransport transport,
 		SSHPublicKeyFactory pkf, HostKeyVerifier hv)
-		throws SSHTimeoutException, SSHException
+		throws SSHException
 	{
 		Random rnd = new Random();
 		BigInteger q = p.subtract(BigInteger.ONE).shiftRight(1);
