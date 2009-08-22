@@ -104,7 +104,7 @@ public class PacketFactory
 	private synchronized SSHMessage readPacket()
 		throws IOException, SSHException
 	{
-		in.intialize();
+		in.initialize();
 		int plen = Utils.decodeInt(in);
 		int padlen = Utils.decodeByte(in) & 0xff;
 		int msgType = Utils.decodeByte(in);
@@ -136,7 +136,7 @@ public class PacketFactory
 
 	private synchronized void writePacket(SSHMessage msg) throws IOException
 	{
-		out.intialize();
+		out.initialize();
 		byte[] msgEnc = msg.encode();
 		byte[] encoding = new byte[msgEnc.length + 1];
 		encoding[0] = (byte)msg.getID();

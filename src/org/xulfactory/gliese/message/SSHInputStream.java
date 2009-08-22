@@ -85,7 +85,7 @@ class SSHInputStream extends InputStream
 		this.index = bs;
 	}
 
-	public void intialize()
+	public void initialize()
 	{
 		if (mac != null) {
 			mac.reset();
