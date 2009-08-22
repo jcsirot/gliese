@@ -116,7 +116,7 @@ public class SSHTransport
 	private String integrityCS;
 	private String integritySC;
 
-	private Map<String, CipherAlgorithm> cipherAlgos;
+	private Map<String, BaseCipherAlgorithm> cipherAlgos;
 	private Map<String, MacAlgorithm> macAlgos;
 
 	SSHTransport(String host, int port, SSHAlgorithms algos, HostKeyVerifier hv)
@@ -335,8 +335,8 @@ public class SSHTransport
 			throw new Error(nsae);
 		}
 
-		CipherAlgorithm ccsh = cipherAlgos.get(encryptionCS);
-		CipherAlgorithm csch = cipherAlgos.get(encryptionSC);
+		BaseCipherAlgorithm ccsh = cipherAlgos.get(encryptionCS);
+		BaseCipherAlgorithm csch = cipherAlgos.get(encryptionSC);
 		MacAlgorithm mcsh = macAlgos.get(integrityCS);
 		MacAlgorithm msch = macAlgos.get(integritySC);
 
@@ -344,8 +344,8 @@ public class SSHTransport
 		byte[] ivsc = derivation(k, h, (byte)66, sessionId, csch.getBlockLength(), dg);
 		byte[] keycs = derivation(k, h, (byte)67, sessionId, ccsh.getKeyLength(), dg);
 		byte[] keysc = derivation(k, h, (byte)68, sessionId, csch.getKeyLength(), dg);
-		byte[] maccs = derivation(k, h, (byte)69, sessionId, mcsh.getBlockLength(), dg);
-		byte[] macsc = derivation(k, h, (byte)70, sessionId, msch.getBlockLength(), dg);
+		byte[] maccs = derivation(k, h, (byte)69, sessionId, mcsh.getLength(), dg);
+		byte[] macsc = derivation(k, h, (byte)70, sessionId, msch.getLength(), dg);
 
 		Cipher ccs = ccsh.getInstance(keycs, ivcs, Cipher.ENCRYPT_MODE);
 		Cipher csc = csch.getInstance(keysc, ivsc, Cipher.DECRYPT_MODE);
@@ -394,9 +394,9 @@ public class SSHTransport
 
 	private void initAlgorithms(SSHAlgorithms algos)
 	{
-		cipherAlgos = new HashMap<String, CipherAlgorithm>();
+		cipherAlgos = new HashMap<String, BaseCipherAlgorithm>();
 		macAlgos = new HashMap<String, MacAlgorithm>();
-		for (CipherAlgorithm algo: algos.getEncryptionAlgorithms()) {
+		for (BaseCipherAlgorithm algo: algos.getEncryptionAlgorithms()) {
 			cipherAlgos.put(algo.getName(), algo);
 		}
 		for (MacAlgorithm algo: algos.getMacAlgorithms()) {

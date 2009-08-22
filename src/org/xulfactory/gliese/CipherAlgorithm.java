@@ -17,88 +17,35 @@
 
 package org.xulfactory.gliese;
 
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
+ * Encryption/Decryption algorithm interface.
  *
  * @author sirot
  */
-public abstract class CipherAlgorithm implements SSHAlgorithm
+public interface CipherAlgorithm extends SSHAlgorithm
 {
-	private String name;
-	private int keyLength;
-	private int blockLength;
+	/**
+	 * Retrieves the length of the block in bytes.
+	 * 
+	 * @return  the block length
+	 */
+	int getBlockLength();
 
 	/**
-	 * Creates an {@code AlgorithmDescriptor}.
+	 * Retrieves the length of the key in bytes.
 	 *
-	 * @param name   the SSH standardized cipher name
-	 * @param keyLength   the key length in bytes
-	 * @param blockLength   the block length in bytes for block cipher
+	 * @return the key length
 	 */
-	CipherAlgorithm(String name, int keyLength, int blockLength)
-	{
-		this.name = name;
-		this.keyLength = keyLength;
-		this.blockLength = blockLength;
-	}
+	int getKeyLength();
 
-	int getBlockLength()
-	{
-		return blockLength;
-	}
-
-	int getKeyLength()
-	{
-		return keyLength;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	abstract Cipher getInstance(byte[] key, byte[] iv, int mode);
-
-	static class BaseCipherAlgorithm extends CipherAlgorithm
-	{
-		protected String algoName;
-		protected String keyName;
-
-		public BaseCipherAlgorithm(String name,
-			String algoName, String keyName,
-			int keyLength, int blockLength)
-		{
-			super(name, keyLength, blockLength);
-			this.algoName = algoName;
-			this.keyName = keyName;
-		}
-
-		@Override
-		Cipher getInstance(byte[] key, byte[] iv, int mode)
-		{
-			try {
-				Cipher c = Cipher.getInstance(algoName);
-				IvParameterSpec params = new IvParameterSpec(iv);
-				Key skey = new SecretKeySpec(key, keyName);
-				c.init(mode, skey, params);
-				return c;
-			} catch (InvalidAlgorithmParameterException iae) {
-				throw new Error(iae);// FIXME
-			} catch (NoSuchAlgorithmException nsae) {
-				throw new Error(nsae);// FIXME
-			} catch (InvalidKeyException ike) {
-				throw new Error(ike);// FIXME
-			} catch (NoSuchPaddingException nspe) {
-				throw new Error(nspe);// FIXME
-			}
-		}
-	}
+	/**
+	 * Retrieves an instance of the cipher algorithm initialized with
+	 * the provided key.
+	 *
+	 * @param key  the key
+	 * @return  the cipher instance
+	 */
+	Cipher getInstance(byte[] key, byte[] iv, int mode);
 }

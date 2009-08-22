@@ -17,77 +17,35 @@
 
 package org.xulfactory.gliese;
 
-import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
 import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
+ * Message authentication code algorithm interface.
  *
  * @author sirot
  */
-public abstract class MacAlgorithm implements SSHAlgorithm
+public interface MacAlgorithm extends SSHAlgorithm
 {
-	private String name;
-	private int keyLength;
-	private int blockLength;
+	/**
+	 * Retrieves the Mac output length in bytes.
+	 *
+	 * @return  the mac length
+	 */
+	int getLength();
 
 	/**
-	 * Creates an {@code MacHandler}.
+	 * Retrieves the length of the key in bytes.
 	 *
-	 * @param name  the SSH standardized Mac name
-	 * @param keyLength   the key length in bytes
-	 * @param blockLength   the block length in bytes
+	 * @return  the Mac key length
 	 */
-	MacAlgorithm(String name, int keyLength, int blockLength)
-	{
-		this.name = name;
-		this.keyLength = keyLength;
-		this.blockLength = blockLength;
-	}
+	int getKeyLength();
 
-	int getBlockLength()
-	{
-		return blockLength;
-	}
-
-	int getKeyLength()
-	{
-		return keyLength;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	abstract Mac getInstance(byte[] key);
-
-	static class BaseMacHandler extends MacAlgorithm
-	{
-		protected String algoName;
-
-		public BaseMacHandler(String name, String algoName,
-			int keyLength, int blockLength)
-		{
-			super(name, keyLength, blockLength);
-			this.algoName = algoName;
-		}
-
-		@Override
-		Mac getInstance(byte[] key)
-		{
-			try {
-				Mac mac = Mac.getInstance(algoName);
-				Key skey = new SecretKeySpec(key, algoName);
-				mac.init(skey);
-				return mac;
-			} catch (NoSuchAlgorithmException nsae) {
-				throw new Error(nsae);// FIXME
-			} catch (InvalidKeyException ike) {
-				throw new Error(ike);// FIXME
-			}
-		}
-	}
+	/**
+	 * Retrieves an instance of the Mac algorithm initialized with
+	 * the provided key.
+	 *
+	 * @param key  the key
+	 * @return  the Mac instance
+	 */
+	Mac getInstance(byte[] key);
 }

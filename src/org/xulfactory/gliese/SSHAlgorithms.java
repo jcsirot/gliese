@@ -27,7 +27,7 @@ public interface SSHAlgorithms
 {
 	List<KeyExchangeAlgorithm> getKexAlgorithms();
 
-	List<CipherAlgorithm> getEncryptionAlgorithms();
+	List<BaseCipherAlgorithm> getEncryptionAlgorithms();
 
 	List<MacAlgorithm> getMacAlgorithms();
 
