@@ -57,7 +57,7 @@ class SSHOutputStream extends OutputStream
 		this.mac = mac;
 	}
 
-	public void intialize()
+	public void initialize()
 	{
 		if (mac != null) {
 			mac.reset();
