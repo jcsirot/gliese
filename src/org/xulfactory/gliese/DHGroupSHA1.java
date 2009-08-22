@@ -63,6 +63,11 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 	private static final String GROUP_1_NAME = "diffie-hellman-group1-sha1";
 	private static final String GROUP_14_NAME = "diffie-hellman-group14-sha1";
 
+	/**
+	 * Namespace for diffie-hellman-group1-sha1 and
+	 * diffie-hellman-group14-sha1 key exchange algorithms
+	 */
+	public static final String NAMESPACE = "diffie-hellman-sha1";
 
 	public static DHGroupSHA1 group1()
 	{
@@ -102,6 +107,7 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 		SSHPublicKeyFactory pkf, HostKeyVerifier hv)
 		throws SSHException
 	{
+		transport.registerMessageClass(NAMESPACE, KexDHReplyMessage.class);
 		Random rnd = new Random();
 		BigInteger q = p.subtract(BigInteger.ONE).shiftRight(1);
 		do {
@@ -111,7 +117,8 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 		KexDHInitMessage init = new KexDHInitMessage();
 		init.setE(e);
 		transport.writeMessage(init);
-		KexDHReplyMessage reply = (KexDHReplyMessage)transport.readMessage();
+		KexDHReplyMessage reply = (KexDHReplyMessage)transport
+			.readMessage(NAMESPACE);
 
 		BigInteger f = reply.getF();
 		k = f.modPow(x, p);

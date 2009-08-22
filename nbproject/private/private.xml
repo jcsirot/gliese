@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/tmp/Gliese/src/Main.java</file>
-        <file>file:/tmp/Gliese/src/org/xulfactory/gliese/message/PublicKeyMethodData.java</file>
-        <file>file:/tmp/Gliese/src/org/xulfactory/gliese/SSHAuthentication.java</file>
-        <file>file:/tmp/Gliese/src/org/xulfactory/gliese/message/UserAuthRequestMessage.java</file>
-        <file>file:/tmp/Gliese/src/org/xulfactory/gliese/message/PacketFactory.java</file>
-        <file>file:/tmp/Gliese/src/org/xulfactory/gliese/DHGroupSHA1.java</file>
-        <file>file:/tmp/Gliese/src/org/xulfactory/gliese/SSHRSAPublicKey.java</file>
-        <file>file:/tmp/Gliese/src/org/xulfactory/gliese/SSHConnection.java</file>
-        <file>file:/tmp/Gliese/src/org/xulfactory/gliese/message/SSHMessage.java</file>
-    </open-files>
 </project-private>
