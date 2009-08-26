@@ -15,7 +15,9 @@
  *  under the License.
  */
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -24,6 +26,7 @@ import java.security.spec.RSAPrivateKeySpec;
 import java.util.Arrays;
 import org.xulfactory.gliese.AuthenticationResult;
 import org.xulfactory.gliese.Gliese;
+import org.xulfactory.gliese.SSHChannel;
 import org.xulfactory.gliese.SSHConnection;
 import org.xulfactory.gliese.SSHException;
 import org.xulfactory.gliese.SSHRSAPublicKey;
@@ -51,23 +54,58 @@ public class Main
 				username = System.console().readLine("Login as: ");
 			} while (username == null);
 			System.out.println(Arrays.toString(conn.getAuthenticationMethods(username)));
-//			while (true) {
-//				char[] password = System.console().readPassword("Password: ");
-//				if (password == null) {
-//					password = "".toCharArray();
-//				}
-//				AuthenticationResult res = conn.authenticate(username, password);
-//				if (res.isSuccess()) {
-//					break;
-//				}
-//			}
- 			SSHRSAPublicKey pk = new SSHRSAPublicKey(N, E);
- 			RSAPrivateKeySpec spec = new RSAPrivateKeySpec(N, D);
- 			KeyFactory kf = KeyFactory.getInstance("RSA");
- 			PrivateKey sk = kf.generatePrivate(spec);
- 			Signature sig = Signature.getInstance("SHA1withRSA");
- 			sig.initSign(sk);
- 			AuthenticationResult res = conn.authenticate(username, pk, sig);
+			while (true) {
+				char[] password = System.console().readPassword("Password: ");
+				if (password == null) {
+					password = "".toCharArray();
+				}
+				AuthenticationResult res = conn.authenticate(username, password);
+				if (res.isSuccess()) {
+					break;
+				}
+			}
+// 			SSHRSAPublicKey pk = new SSHRSAPublicKey(N, E);
+// 			RSAPrivateKeySpec spec = new RSAPrivateKeySpec(N, D);
+// 			KeyFactory kf = KeyFactory.getInstance("RSA");
+// 			PrivateKey sk = kf.generatePrivate(spec);
+// 			Signature sig = Signature.getInstance("SHA1withRSA");
+// 			sig.initSign(sk);
+// 			AuthenticationResult res = conn.authenticate(username, pk, sig);
+			SSHChannel channel = conn.openSession();
+			final InputStream in = channel.getInputStream();
+			final InputStream err = channel.getErrorStream();
+			channel.execCommand(args[1]);
+			Thread t = new Thread() {
+				public void run() {
+					try {
+						while (true) {
+							byte[] b = new byte[1024];
+							int len = err.read(b);
+							if (len == -1) {
+								break;
+							}
+							String s = new String(b, 0, len);
+							System.err.print(s);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
+			};
+			t.start();
+			System.console().readLine("Press a key...");
+			while (true) {
+				byte[] b = new byte[4096];
+				int len = in.read(b);
+				if (len == -1) {
+					break;
+				}
+				String s = new String(b, 0, len);
+				System.out.print(s);
+			}
+			System.out.println("exit status: " + channel.getExitStatus());
+			channel.close();
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();

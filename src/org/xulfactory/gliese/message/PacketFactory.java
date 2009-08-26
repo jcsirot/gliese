@@ -1,12 +1,12 @@
 /*
  *  Copyright 2009 Jean-Christophe Sirot <sirot@xulfactory.org>.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -63,7 +63,7 @@ public class PacketFactory
 		this.types = new HashMap<String, Map<Integer, Class<? extends SSHMessage>>>();
 		registerIncomingMessages();
 	}
-	
+
 	private void registerIncomingMessages()
 	{
 		register(KexInitMessage.class);
@@ -76,6 +76,15 @@ public class PacketFactory
 		register(UserAuthSuccessMessage.class);
 		register(UserAuthBannerMessage.class);
 		register(UserAuthPublicKeyOk.class);
+		register(ChannelOpenConfirmationMessage.class);
+		register(ChannelWindowsAdjustMessage.class);
+		register(ChannelSuccessMessage.class);
+		register(ChannelFailureMessage.class);
+		register(ChannelRequestMessage.class);
+		register(ChannelDataMessage.class);
+		register(ChannelExtendedDataMessage.class);
+		register(ChannelEOFMessage.class);
+		register(ChannelCloseMessage.class);
 	}
 
 	/**
@@ -137,67 +146,79 @@ public class PacketFactory
 	 * @return  the decoded mssage
 	 * @throws IOException  if an error occurred while reading the stream
 	 */
-	private synchronized SSHMessage readPacket(String namespace)
+	private SSHMessage readPacket(String namespace)
 		throws IOException, SSHException
 	{
-		in.initialize();
-		int plen = Utils.decodeInt(in);
-		int padlen = Utils.decodeByte(in) & 0xff;
-		int msgType = Utils.decodeByte(in);
-		Class<? extends SSHMessage> klass = getMessageClass(msgType, namespace);
-		if (klass == null) {
-			throw new IOException("Unsupported message type: " + msgType);
-		}
-		SSHMessage msg;
-		try {
-			msg = klass.newInstance();
-			msg.decode(new PayloadInputStream(in, plen - padlen - 2));
-		} catch (IllegalAccessException iae) {
-			throw new SSHException("Unable to create message", iae);
-		} catch (InstantiationException ie) {
-			throw new SSHException("Unable to create message", ie);
-		}
-		Utils.decodeBytes(in, padlen);
-		if (!in.checkMac()) {
-			try {
-				writeMessage(new DisconnectMessage(
-					DisconnectMessage.MAC_ERROR,
-					"Bad MAC on input", null));
-			} catch (SSHException se) {
+		synchronized (in) {
+			in.initialize();
+			int plen = Utils.decodeInt(in);
+			int padlen = Utils.decodeByte(in) & 0xff;
+			int msgType = Utils.decodeByte(in);
+			Class<? extends SSHMessage> klass
+				= getMessageClass(msgType, namespace);
+			if (klass == null) {
+				throw new IOException("Unsupported message type: " + msgType);
 			}
-			throw new SSHException("Bad MAC on input");
+			SSHMessage msg;
+			try {
+				msg = klass.newInstance();
+				PayloadInputStream pin = new PayloadInputStream(in, plen - padlen - 2);
+				msg.decode(pin);
+				pin.flush();
+			} catch (IllegalAccessException iae) {
+				throw new SSHException("Unable to create message", iae);
+			} catch (InstantiationException ie) {
+				throw new SSHException("Unable to create message", ie);
+			}
+			Utils.decodeBytes(in, padlen);
+			if (!in.checkMac()) {
+				try {
+					writeMessage(new DisconnectMessage(
+						DisconnectMessage.MAC_ERROR,
+						"Bad MAC on input", null));
+				} catch (SSHException se) {
+					// ignore exception
+				}
+				throw new SSHException("Bad MAC on input");
+			}
+			return msg;
 		}
-		return msg;
 	}
 
-	private synchronized void writePacket(SSHMessage msg) throws IOException
+	private  void writePacket(SSHMessage msg) throws IOException
 	{
-		out.initialize();
-		byte[] msgEnc = msg.encode();
-		byte[] encoding = new byte[msgEnc.length + 1];
-		encoding[0] = (byte)msg.getID();
-		System.arraycopy(msgEnc, 0, encoding, 1, msgEnc.length);
-		int len = encoding.length + 9;
-		int padlen = 4 + blockSizeCS - (len % blockSizeCS);
-		Utils.encodeInt(out, encoding.length + padlen + 1);
-		out.write(padlen);
-		out.write(encoding);
-		byte[] padding = new byte[padlen];
-		rnd.nextBytes(padding);
-		out.write(padding);
-		out.writeMac();
-		out.flush();
+		synchronized (out) {
+			out.initialize();
+			byte[] msgEnc = msg.encode();
+			byte[] encoding = new byte[msgEnc.length + 1];
+			encoding[0] = (byte)msg.getID();
+			System.arraycopy(msgEnc, 0, encoding, 1, msgEnc.length);
+			int len = encoding.length + 9;
+			int padlen = 4 + blockSizeCS - (len % blockSizeCS);
+			Utils.encodeInt(out, encoding.length + padlen + 1);
+			out.write(padlen);
+			out.write(encoding);
+			byte[] padding = new byte[padlen];
+			rnd.nextBytes(padding);
+			out.write(padding);
+			out.writeMac();
+			out.flush();
+		}
 	}
 
-	public synchronized void newKeys(Cipher ccs, Cipher csc, Mac mcs, Mac msc)
+	public void newKeys(Cipher ccs, Cipher csc, Mac mcs, Mac msc)
 	{
-		blockSizeCS = ccs.getBlockSize();
-		blockSizeSC = csc.getBlockSize();
-		in.updateCrypto(csc, msc);
-		out.updateCrypto(ccs, mcs);
+		synchronized (in) {
+			blockSizeSC = csc.getBlockSize();
+			in.updateCrypto(csc, msc);
+		}
+		synchronized (out) {
+			blockSizeCS = ccs.getBlockSize();
+			out.updateCrypto(ccs, mcs);
+		}
 	}
 
-	public synchronized void writeMessage(SSHMessage msg)
+	public void writeMessage(SSHMessage msg)
 		throws SSHException
 	{
 		try {
@@ -208,13 +229,13 @@ public class PacketFactory
 		}
 	}
 
-	public synchronized SSHMessage readMessage(int... ids)
+	public SSHMessage readMessage(int... ids)
 		throws SSHException
 	{
 		return readMessage(null, ids);
 	}
 
-	public synchronized SSHMessage readMessage(String namespace, int... ids)
+	public SSHMessage readMessage(String namespace, int... ids)
 		throws SSHException
 	{
 		SSHMessage m = readMessage(namespace);
@@ -226,7 +247,7 @@ public class PacketFactory
 		throw new SSHException("Unexpected message type: " + m.getID());
 	}
 
-	public synchronized SSHMessage readMessage(String namespace)
+	public SSHMessage readMessage(String namespace)
 		throws SSHException
 	{
 		try {
@@ -238,7 +259,7 @@ public class PacketFactory
 		}
 	}
 
-	public synchronized SSHMessage readMessage() throws SSHException
+	public SSHMessage readMessage() throws SSHException
 	{
 		return readMessage((String)null);
 	}

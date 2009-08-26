@@ -30,6 +30,8 @@ public class SSHConnection
 {
 	private SSHTransport transport;
 	private SSHAuthentication authentication;
+	private ChannelManager channels;
+	private int chanId = 1;
 
 	SSHConnection(String host, int port) throws IOException, SSHException
 	{
@@ -51,6 +53,7 @@ public class SSHConnection
 		transport.openConnection();
 		GlieseLogger.LOGGER.info("Transport layer established.");
 		authentication = new SSHAuthentication(transport);
+		channels = new ChannelManager(transport);
 	}
 
 	public String[] getAuthenticationMethods(String username)
@@ -69,6 +72,11 @@ public class SSHConnection
 		throws SSHException
 	{
 		return authentication.authenticate(username, key, signer);
+	}
+
+	public SSHChannel openSession() throws SSHException
+	{
+		return channels.openSession();
 	}
 
 	public boolean isAuthenticated()

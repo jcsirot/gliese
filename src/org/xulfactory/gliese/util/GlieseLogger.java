@@ -86,9 +86,19 @@ public class GlieseLogger
 		log(Level.INFO, msg, null);
 	}
 	
+	public void warn(Object msg)
+	{
+		log(Level.WARNING, msg, null);
+	}
+
 	public void error(Object msg)
 	{
 		log(Level.SEVERE, msg, null);
+	}
+
+	public void error(Throwable t)
+	{
+		log(Level.SEVERE, "", t);
 	}
 
 	public void error(Object msg, Throwable t)
