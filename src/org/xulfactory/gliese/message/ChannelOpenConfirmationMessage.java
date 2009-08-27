@@ -1,12 +1,12 @@
 /*
  *  Copyright 2009 Jean-Christophe Sirot <sirot@xulfactory.org>.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ public class ChannelOpenConfirmationMessage extends SSHMessage
 	private int recipientChannelId;
 	private int senderChannelId;
 	private int initialWindowSize;
-	private int maxWindowSize;
+	private int maxPacketSize;
 
 	public ChannelOpenConfirmationMessage()
 	{
@@ -46,7 +46,7 @@ public class ChannelOpenConfirmationMessage extends SSHMessage
 		recipientChannelId = Utils.decodeInt(in);
 		senderChannelId = Utils.decodeInt(in);
 		initialWindowSize = Utils.decodeInt(in);
-		maxWindowSize = Utils.decodeInt(in);
+		maxPacketSize = Utils.decodeInt(in);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ChannelOpenConfirmationMessage extends SSHMessage
 		Utils.encodeInt(out, recipientChannelId);
 		Utils.encodeInt(out, senderChannelId);
 		Utils.encodeInt(out, initialWindowSize);
-		Utils.encodeInt(out, maxWindowSize);
+		Utils.encodeInt(out, maxPacketSize);
 	}
 
 	public int getInitialWindowSize()
@@ -63,9 +63,9 @@ public class ChannelOpenConfirmationMessage extends SSHMessage
 		return initialWindowSize;
 	}
 
-	public int getMaxWindowSize()
+	public int getMaxPacketSize()
 	{
-		return maxWindowSize;
+		return maxPacketSize;
 	}
 
 	public int getRecipientChannelId()
@@ -83,9 +83,9 @@ public class ChannelOpenConfirmationMessage extends SSHMessage
 		this.initialWindowSize = initialWindowSize;
 	}
 
-	public void setMaxWindowSize(int maxWindowSize)
+	public void setMaxPacketSize(int maxPacketSize)
 	{
-		this.maxWindowSize = maxWindowSize;
+		this.maxPacketSize = maxPacketSize;
 	}
 
 	public void setRecipientChannelId(int recipientChannelId)
@@ -96,5 +96,16 @@ public class ChannelOpenConfirmationMessage extends SSHMessage
 	public void setSenderChannelId(int senderChannelId)
 	{
 		this.senderChannelId = senderChannelId;
+	}
+
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("SSH_MSG_CHANNEL_CONFIRMATION, ");
+		sb.append("recipient=" + recipientChannelId);
+		sb.append(", sender=" + senderChannelId);
+		sb.append(", window init size=" + initialWindowSize);
+		sb.append(", packet max size=" + maxPacketSize);
+		return sb.toString();
 	}
 }

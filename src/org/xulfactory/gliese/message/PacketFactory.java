@@ -32,7 +32,17 @@ import javax.crypto.Cipher;
 import javax.crypto.Mac;
 
 /**
- * This class computes SSH packet from {@code SSHMessage} instances.
+ * <p>
+ * Packet reader and writer.
+ * 
+ * The {@code PacketFactory} reads the packet from the server, decode
+ * the messages and instanciate the correct object according to the message
+ * type and the optional namespace.
+ *
+ * The {@code PacketFactory} class also handles encryption, decryption,
+ * integrity and compression (NYI) of the packets.
+ * </p>
+ *
  *
  * @author sirot
  */
@@ -60,7 +70,8 @@ public class PacketFactory
 		this.oout = new BufferedOutputStream(out);
 		this.out = new SSHOutputStream(oout);
 		this.rnd = new Random();
-		this.types = new HashMap<String, Map<Integer, Class<? extends SSHMessage>>>();
+		this.types = new HashMap<String,
+			Map<Integer, Class<? extends SSHMessage>>>();
 		registerIncomingMessages();
 	}
 
@@ -206,6 +217,14 @@ public class PacketFactory
 		}
 	}
 
+	/**
+	 * Updates the Ciphers and Macs.
+	 *
+	 * @param ccs  the client to server cipher
+	 * @param csc  the server to client cipher
+	 * @param mcs  the client to server mac
+	 * @param msc  the server to client mac
+	 */
 	public void newKeys(Cipher ccs, Cipher csc, Mac mcs, Mac msc)
 	{
 		synchronized (in) {

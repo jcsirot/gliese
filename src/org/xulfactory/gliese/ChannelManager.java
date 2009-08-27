@@ -39,12 +39,12 @@ import java.util.concurrent.BlockingQueue;
  *
  * @author sirot
  */
-class ChannelManager implements Runnable
+class ChannelManager
 {
-//	private int DEFAULT_WIN_INIT_SIZE = 0x4000;
-//	private int DEFAULT_PACKET_MAX_SIZE = 0x1000;
-	private int DEFAULT_WIN_INIT_SIZE = 0x400;
-	private int DEFAULT_PACKET_MAX_SIZE = 0x400;
+// 	private int DEFAULT_WIN_INIT_SIZE = 0x4000;
+// 	private int DEFAULT_PACKET_MAX_SIZE = 0x1000;
+ 	private int DEFAULT_WIN_INIT_SIZE = 0x400;
+ 	private int DEFAULT_PACKET_MAX_SIZE = 0x400;
 
 	private SSHTransport transport;
 	private Map<Integer, SSHChannel> locals;
@@ -66,78 +66,81 @@ class ChannelManager implements Runnable
 		if (readerThread != null) {
 			return;
 		} else {
-			readerThread = new Thread(this, "ChannelManager");
+			readerThread = new Thread(new Runnable() {
+				public void run()
+				{
+					while (true) {
+						try {
+							channelLoop();
+						} catch (SSHException se) {
+							break;
+						}
+					}
+				}
+			}, "ChannelManager");
 			readerThread.start();
 		}
 	}
 
-	public void run()
+	public void channelLoop() throws SSHException
 	{
-		while(true) {
-			try {
-				SSHChannel chann = null;
-				SSHMessage msg = transport.readMessage();
-				switch (msg.getID()) {
-				case ChannelSuccessMessage.ID:
-					ChannelSuccessMessage m5 = (ChannelSuccessMessage)msg;
-					chann = locals.get(m5.getChannelId());
-					synchronized (chann.LOCK) {
-						chann.lastReqSuccess = true;
-						chann.LOCK.notify();
-					}
-					break;
-				case ChannelFailureMessage.ID:
-					ChannelFailureMessage m6 = (ChannelFailureMessage)msg;
-					chann = locals.get(m6.getChannelId());
-					synchronized (chann.LOCK) {
-						chann.lastReqSuccess = false;
-						chann.LOCK.notify();
-					}
-					break;
-				case ChannelRequestMessage.ID:
-					ChannelRequestMessage m0 = (ChannelRequestMessage)msg;
-					chann = locals.get(m0.getChannelId());
-					chann.handleRequest(m0.getRequest(), m0.getWantReply());
-					break;
-				case ChannelWindowsAdjustMessage.ID:
-					break; // FIXME
-				case ChannelEOFMessage.ID:
-					ChannelEOFMessage m2 = (ChannelEOFMessage)msg;
-					chann = locals.get(m2.getChannelId());
-					chann.eof();
-					break;
-				case ChannelDataMessage.ID:
-					ChannelDataMessage m1 = (ChannelDataMessage)msg;
-					chann = locals.get(m1.getChannelId());
-					chann.pushData(m1.getData());
-					break;
-				case ChannelExtendedDataMessage.ID:
-					ChannelExtendedDataMessage m3 = (ChannelExtendedDataMessage)msg;
-					chann = locals.get(m3.getChannelId());
-					chann.pushExtendedData(m3.getData(), m3.getDataType());
-					break;
-				case ChannelOpenConfirmationMessage.ID:
-					try {
-						queue.put(msg);
-					} catch (InterruptedException ex) {
-						ex.printStackTrace();
-					}
-					break;
-				case ChannelCloseMessage.ID:
-					ChannelCloseMessage m4 = (ChannelCloseMessage)msg;
-					chann = locals.get(m4.getChannelId());
-					chann.peerClose();
-					break;
-				default:
-					GlieseLogger.LOGGER.error(String.format(
-						"Unexpected message type: %d",
-						msg.getID()));
-				}
-			} catch (SSHException se) {
-				// GlieseLogger.LOGGER.error("", se);
-				// se.printStackTrace();
-				break;
+		SSHChannel chann = null;
+		SSHMessage msg = transport.readMessage();
+		switch (msg.getID()) {
+		case ChannelSuccessMessage.ID:
+			ChannelSuccessMessage m5 = (ChannelSuccessMessage)msg;
+			chann = locals.get(m5.getChannelId());
+			synchronized (chann.LOCK) {
+				chann.lastReqSuccess = true;
+				chann.LOCK.notify();
 			}
+			break;
+		case ChannelFailureMessage.ID:
+			ChannelFailureMessage m6 = (ChannelFailureMessage)msg;
+			chann = locals.get(m6.getChannelId());
+			synchronized (chann.LOCK) {
+				chann.lastReqSuccess = false;
+				chann.LOCK.notify();
+			}
+			break;
+		case ChannelRequestMessage.ID:
+			ChannelRequestMessage m0 = (ChannelRequestMessage)msg;
+			chann = locals.get(m0.getChannelId());
+			chann.handleRequest(m0.getRequest(), m0.getWantReply());
+			break;
+		case ChannelWindowsAdjustMessage.ID:
+			break; // FIXME
+		case ChannelEOFMessage.ID:
+			ChannelEOFMessage m2 = (ChannelEOFMessage)msg;
+			chann = locals.get(m2.getChannelId());
+			chann.eof();
+			break;
+		case ChannelDataMessage.ID:
+			ChannelDataMessage m1 = (ChannelDataMessage)msg;
+			chann = locals.get(m1.getChannelId());
+			chann.pushData(m1.getData());
+			break;
+		case ChannelExtendedDataMessage.ID:
+			ChannelExtendedDataMessage m3 =
+				(ChannelExtendedDataMessage)msg;
+			chann = locals.get(m3.getChannelId());
+			chann.pushExtendedData(m3.getData(), m3.getDataType());
+			break;
+		case ChannelOpenConfirmationMessage.ID:
+			try {
+				queue.put(msg);
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+			break;
+		case ChannelCloseMessage.ID:
+			ChannelCloseMessage m4 = (ChannelCloseMessage)msg;
+			chann = locals.get(m4.getChannelId());
+			chann.peerClose();
+			break;
+		default:
+			GlieseLogger.LOGGER.error(String.format(
+				"Unexpected message type: %d", msg.getID()));
 		}
 	}
 

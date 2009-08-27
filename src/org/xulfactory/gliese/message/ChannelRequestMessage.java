@@ -150,8 +150,8 @@ public class ChannelRequestMessage extends SSHMessage
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("SSH_MSG_CHANNEL_REQUEST");
-		sb.append(", Recipient channel: " + channelId);
-		sb.append(", Request type: " + requestType);
+		sb.append(", recipient channel: " + channelId);
+		sb.append(", request type: " + requestType);
 		return sb.toString();
 	}
 }

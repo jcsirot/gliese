@@ -39,7 +39,7 @@ public class BaseMacAlgorithm implements MacAlgorithm
 	 * Creates an {@code MacHandler}.
 	 *
 	 * @param name  the SSH standardized Mac name
-	 * @param name  the JCA Mac algorithm name
+	 * @param algoName  the JCA Mac algorithm name
 	 * @param blockLength   the block length in bytes
 	 * @param keyLength   the key length in bytes
 	 */

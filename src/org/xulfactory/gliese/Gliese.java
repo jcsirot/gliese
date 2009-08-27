@@ -19,6 +19,7 @@ package org.xulfactory.gliese;
 import java.io.IOException;
 
 /**
+ * <strong>Entry point of the library.</strong>
  *
  * @author sirot
  */

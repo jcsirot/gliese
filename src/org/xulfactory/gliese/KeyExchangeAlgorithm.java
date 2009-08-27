@@ -26,6 +26,7 @@ import java.math.BigInteger;
  */
 public interface KeyExchangeAlgorithm extends SSHAlgorithm
 {
+	/** @see SSHAlgorithm */
 	String getName();
 
 	/**
@@ -40,9 +41,24 @@ public interface KeyExchangeAlgorithm extends SSHAlgorithm
 		HostKeyVerifier verifier)
 		throws SSHException;
 
+	/**
+	 * Retrives the key exchange shared secret.
+	 *
+	 * @see <a target="_blank" href="http://tools.ietf.org/html/rfc4253#section-7.2">http://tools.ietf.org/html/rfc4253</a>
+	 */
 	BigInteger getSharedSecret();
 
+	/**
+	 * Retrives the exchange hash value.
+	 *
+	 * @see <a target="_blank" href="http://tools.ietf.org/html/rfc4253#section-7.2">http://tools.ietf.org/html/rfc4253</a>
+	 */
 	byte[] getExchangeHash();
 
+	/**
+	 * Retrieves the hash algorithm defined by this key exchange algorithm.
+	 *
+	 * @return  the hash algorithm name
+	 */
 	String getHashAlgorithm();
 }

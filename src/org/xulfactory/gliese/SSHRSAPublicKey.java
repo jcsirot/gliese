@@ -112,12 +112,22 @@ public class SSHRSAPublicKey implements SSHPublicKey
 		}
 	}
 
-	BigInteger getE()
+	/**
+	 * Retrieves the public exponent.
+	 *
+	 * @return the public exponent
+	 */
+	public BigInteger getE()
 	{
 		return e;
 	}
 
-	BigInteger getN()
+	/**
+	 * Retrieves the modulus.
+	 *
+	 * @return the modulus
+	 */
+	public BigInteger getN()
 	{
 		return n;
 	}

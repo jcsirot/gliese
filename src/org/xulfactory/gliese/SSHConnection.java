@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.security.Signature;
 
 /**
+ * This class represents a connection with the server. Once connected the
+ * first thing to do is calling is one of the {@code authenticate} methods.
  *
  * @author sirot
  */
@@ -31,7 +33,6 @@ public class SSHConnection
 	private SSHTransport transport;
 	private SSHAuthentication authentication;
 	private ChannelManager channels;
-	private int chanId = 1;
 
 	SSHConnection(String host, int port) throws IOException, SSHException
 	{
@@ -56,6 +57,13 @@ public class SSHConnection
 		channels = new ChannelManager(transport);
 	}
 
+	/**
+	 * Retrieves the allowed authentication methods for the given user.
+	 *
+	 * @param username   the user name
+	 * @return  a list of authentication method for the user
+	 * @throws SSHException
+	 */
 	public String[] getAuthenticationMethods(String username)
 		throws SSHException
 	{
@@ -76,9 +84,16 @@ public class SSHConnection
 
 	public SSHChannel openSession() throws SSHException
 	{
+		if (!isAuthenticated()) {
+			throw new IllegalStateException(
+				"Connection is not authenticated");
+		}
 		return channels.openSession();
 	}
 
+	/**
+	 * Indicates if the authentication has been successfully completed.
+	 */
 	public boolean isAuthenticated()
 	{
 		return  authentication.isAuthenticated();
@@ -89,6 +104,9 @@ public class SSHConnection
 		return transport;
 	}
 
+	/**
+	 * Closes the connection with the server.
+	 */
 	public void close()
 	{
 		transport.close();
