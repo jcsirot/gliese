@@ -114,21 +114,42 @@ public class SSHDSSPublicKey implements SSHPublicKey
 		}
 	}
 
-	BigInteger getP()
+	/**
+	 * Retrieves the prime number, p.
+	 *
+	 * @return p
+	 */
+	public BigInteger getP()
 	{
 		return p;
 	}
 
-	BigInteger getQ()
+	/**
+	 * Retrieves the subprime, q.
+	 *
+	 * @return q
+	 */
+	public BigInteger getQ()
 	{
 		return q;
 	}
 
-	BigInteger getY()
+	/**
+	 * Retrieves the public key, y.
+	 *
+	 * @return y
+	 */
+	public BigInteger getY()
 	{
 		return y;
 	}
-	BigInteger getG()
+
+	/**
+	 * Retrieves the base, g.
+	 *
+	 * @return g
+	 */
+	public BigInteger getG()
 	{
 		return g;
 	}

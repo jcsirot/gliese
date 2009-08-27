@@ -23,7 +23,13 @@ package org.xulfactory.gliese;
  *
  * @author sirot
  */
-interface SSHAlgorithm
+public interface SSHAlgorithm
 {
+	/**
+	 * Retrieves the name of the algorithm as defined in the SSH2 reference.
+	 * For instance des3-cbc, aes128-cbc, hmac-sha1, ssh-dss...
+	 *
+	 * @return  the algorithm SSH name
+	 */
 	String getName();
 }

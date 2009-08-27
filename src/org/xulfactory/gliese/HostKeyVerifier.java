@@ -18,6 +18,7 @@
 package org.xulfactory.gliese;
 
 /**
+ * This interface is implemented by the verifier of the server key.
  *
  * @author sirot
  */

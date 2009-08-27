@@ -69,11 +69,17 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 	 */
 	public static final String NAMESPACE = "diffie-hellman-sha1";
 
+	/**
+	 * Retrieves the {@code diffie-helman-group1-sha1} algorithm
+	 */
 	public static DHGroupSHA1 group1()
 	{
 		return new DHGroupSHA1(P_1, GROUP_1_NAME);
 	}
 
+	/**
+	 * Retrieves the {@code diffie-helman-group14-sha1} algorithm
+	 */
 	public static DHGroupSHA1 group14()
 	{
 		return new DHGroupSHA1(P_14, GROUP_14_NAME);
@@ -96,6 +102,12 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 	private BigInteger k;
 	private final String name;
 
+	/**
+	 * Creates a new {@code DHGroupSHA1}.
+	 * 
+	 * @param p     a large prime for DH key exchange
+	 * @param name  the algorithm name
+	 */
 	private DHGroupSHA1(BigInteger p, String name)
 	{
 		this.p = p;
