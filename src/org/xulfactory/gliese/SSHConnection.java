@@ -36,7 +36,7 @@ public class SSHConnection
 	private final KexInitAlgorithms algos;
 	private HostKeyVerifier hv;
 	private SSHTransport transport;
-	private SSHAuthentication authentication;
+	private AuthenticationManager authentication;
 	private ChannelManager channels;
 
 	SSHConnection(AlgorithmRegistry registry, Properties props)
@@ -58,7 +58,7 @@ public class SSHConnection
 		transport = new SSHTransport(host, port, algos, hv);
 		transport.openConnection();
 		GlieseLogger.LOGGER.info("Transport layer established.");
-		authentication = new SSHAuthentication(transport);
+		authentication = new AuthenticationManager(transport);
 		channels = new ChannelManager(transport);
 	}
 

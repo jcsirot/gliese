@@ -36,7 +36,7 @@ import java.security.Signature;
  *
  * @author sirot
  */
-public class SSHAuthentication
+class AuthenticationManager
 {
 	private static void log(AuthenticationResult res, String username, String method)
 	{
@@ -52,7 +52,7 @@ public class SSHAuthentication
 	private final SSHTransport transport;
 	private boolean authenticated;
 
-	public SSHAuthentication(SSHTransport transport) throws SSHException
+	public AuthenticationManager(SSHTransport transport) throws SSHException
 	{
 		this.transport = transport;
 		requestService();
