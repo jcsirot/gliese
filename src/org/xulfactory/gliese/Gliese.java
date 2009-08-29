@@ -86,6 +86,16 @@ public final class Gliese
 	/**
 	 * Sets the library properties
 	 *
+	 * @param props the property file path
+	 */
+	public static void setProperties(String props) throws IOException
+	{
+		setProperties(new File(props));
+	}
+
+	/**
+	 * Sets the library properties
+	 *
 	 * @param props the property stream
 	 */
 	public static void setProperties(InputStream props) throws IOException
