@@ -21,6 +21,7 @@ import org.xulfactory.gliese.util.GlieseLogger;
 
 import java.io.IOException;
 import java.security.Signature;
+import java.util.Properties;
 
 /**
  * This class represents a connection with the server. Once connected the
@@ -30,23 +31,27 @@ import java.security.Signature;
  */
 public class SSHConnection
 {
+	private final AlgorithmRegistry registry;
+	private final Properties properties;
+	private final KexInitAlgorithms algos;
+	private HostKeyVerifier hv;
 	private SSHTransport transport;
 	private SSHAuthentication authentication;
 	private ChannelManager channels;
 
-	SSHConnection(String host, int port) throws IOException, SSHException
+	SSHConnection(AlgorithmRegistry registry, Properties props)
 	{
-		this(host, port, new DefaultAlgorithms(), null);
+		this.registry = registry;
+		this.properties = props != null ? props : new Properties();
+		this.algos = new DefaultAlgorithms(registry, props);
 	}
 
-	SSHConnection(String host, int port, HostKeyVerifier hv)
-		throws IOException, SSHException
+	public void setHostKeyVerifier(HostKeyVerifier hv)
 	{
-		this(host, port, new DefaultAlgorithms(), hv);
+		this.hv = hv;
 	}
 
-	SSHConnection(String host, int port, SSHAlgorithms algos,
-		HostKeyVerifier hv)
+	public void openConnection(String host, int port)
 		throws IOException, SSHException
 	{
 		GlieseLogger.LOGGER.info("Starting transport layer.");

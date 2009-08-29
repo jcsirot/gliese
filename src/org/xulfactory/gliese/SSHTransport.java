@@ -101,7 +101,7 @@ public class SSHTransport
 	private final Socket socket;
 
 	/** List of supported algorithm for the key exchange */
-	private SSHAlgorithms algos;
+	private KexInitAlgorithms algos;
 	/** Peer public key verification callback */
 	private final HostKeyVerifier hv;
 	boolean guess = true;
@@ -116,10 +116,10 @@ public class SSHTransport
 	private String integrityCS;
 	private String integritySC;
 
-	private Map<String, BaseCipherAlgorithm> cipherAlgos;
+	private Map<String, CipherAlgorithm> cipherAlgos;
 	private Map<String, MacAlgorithm> macAlgos;
 
-	SSHTransport(String host, int port, SSHAlgorithms algos, HostKeyVerifier hv)
+	SSHTransport(String host, int port, KexInitAlgorithms algos, HostKeyVerifier hv)
 		throws IOException
 	{
 		this.algos = algos;
@@ -138,7 +138,7 @@ public class SSHTransport
 	 * @throws SSHException
 	 * @throws SSHTimeoutException on timeout
 	 */
-	SSHTransport(Socket s, SSHAlgorithms algos, HostKeyVerifier hv)
+	SSHTransport(Socket s, KexInitAlgorithms algos, HostKeyVerifier hv)
 	{
 		this.algos = algos;
 		address = s.getInetAddress();
@@ -335,8 +335,8 @@ public class SSHTransport
 			throw new Error(nsae);
 		}
 
-		BaseCipherAlgorithm ccsh = cipherAlgos.get(encryptionCS);
-		BaseCipherAlgorithm csch = cipherAlgos.get(encryptionSC);
+		CipherAlgorithm ccsh = cipherAlgos.get(encryptionCS);
+		CipherAlgorithm csch = cipherAlgos.get(encryptionSC);
 		MacAlgorithm mcsh = macAlgos.get(integrityCS);
 		MacAlgorithm msch = macAlgos.get(integritySC);
 
@@ -392,11 +392,11 @@ public class SSHTransport
 		return data;
 	}
 
-	private void initAlgorithms(SSHAlgorithms algos)
+	private void initAlgorithms(KexInitAlgorithms algos)
 	{
-		cipherAlgos = new HashMap<String, BaseCipherAlgorithm>();
+		cipherAlgos = new HashMap<String, CipherAlgorithm>();
 		macAlgos = new HashMap<String, MacAlgorithm>();
-		for (BaseCipherAlgorithm algo: algos.getEncryptionAlgorithms()) {
+		for (CipherAlgorithm algo: algos.getEncryptionAlgorithms()) {
 			cipherAlgos.put(algo.getName(), algo);
 		}
 		for (MacAlgorithm algo: algos.getMacAlgorithms()) {

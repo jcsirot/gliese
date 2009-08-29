@@ -16,7 +16,11 @@
  */
 package org.xulfactory.gliese;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * <strong>Entry point of the library.</strong>
@@ -25,17 +29,89 @@ import java.io.IOException;
  */
 public final class Gliese
 {
+	private static AlgorithmRegistry registry = new AlgorithmRegistry();
+	private static Properties properties = null;
+
+	/**
+	 * Opens the connection with a SSH server on the default port (22).
+	 *
+	 * @param host  the SSH server host name
+	 * @return the {@code SSHConnection}
+	 * @throws SSHException
+	 * @throws IOException
+	 */
 	public static SSHConnection openConnection(String host)
 		throws SSHException, IOException
 	{
 		return openConnection(host, 22);
 	}
 
+	/**
+	 * Opens the connection with a SSH server.
+	 *
+	 * @param host  the SSH server host name
+	 * @param port  the SSH server host port
+	 * @return the {@code SSHConnection}
+	 * @throws SSHException
+	 * @throws IOException
+	 */
 	public static SSHConnection openConnection(String host, int port)
 			throws SSHException, IOException
 	{
-		SSHConnection con = new SSHConnection(host, port);
+		SSHConnection con = new SSHConnection(registry, properties);
+		con.openConnection(host, port);
 		return con;
+	}
+
+	/**
+	 * Sets the library properties
+	 *
+	 * @param props the property file
+	 */
+	public static void setProperties(File props) throws IOException
+	{
+		setProperties(new FileInputStream(props));
+	}
+
+	/**
+	 * Sets the library properties
+	 *
+	 * @param props the properties
+	 */
+	public static void setProperties(Properties props)
+	{
+		properties = props;
+	}
+
+	/**
+	 * Sets the library properties
+	 *
+	 * @param props the property stream
+	 */
+	public static void setProperties(InputStream props) throws IOException
+	{
+		properties = new Properties();
+		properties.load(props);
+	}
+
+	public static void register(CipherAlgorithm cipher)
+	{
+		registry.register(cipher);
+	}
+
+	public static void register(MacAlgorithm mac)
+	{
+		registry.register(mac);
+	}
+
+	public static void register(KeyExchangeAlgorithm kex)
+	{
+		registry.register(kex);
+	}
+
+	public static void register(SSHPublicKeyFactory kf)
+	{
+		registry.register(kf);
 	}
 
 	private Gliese()
