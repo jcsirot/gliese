@@ -84,7 +84,7 @@ public class ChannelRequestMessage extends SSHMessage
 	{
 		ChannelRequestCodec codec = requests.get(reqType);
 		if (codec == null) {
-			codec = new UnknownChannelRequestCodec();
+			codec = new UnknownChannelRequestCodec(reqType);
 		}
 		return codec.decode(in);
 	}
