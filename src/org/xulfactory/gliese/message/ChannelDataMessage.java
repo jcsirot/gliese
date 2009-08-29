@@ -67,9 +67,15 @@ public class ChannelDataMessage extends SSHMessage
 		this.channelId = channelId;
 	}
 
-	public void setData(byte[] data)
+	public void setData(byte[] buf)
 	{
-		this.data = data;
+		setData(buf, 0, buf.length);
+	}
+
+	public void setData(byte[] buf, int off, int len)
+	{
+		this.data = new byte[len];
+		System.arraycopy(buf, off, data, 0, len);
 	}
 
 	public String toString()

@@ -33,23 +33,27 @@ import java.io.OutputStream;
 public class UnknownChannelRequest implements ChannelRequest
 {
 	private byte[] encoding;
+	private String type;
 
-	private UnknownChannelRequest()
+	private UnknownChannelRequest(String type)
 	{
-	}
-
-	public String getRequestType()
-	{
-		return null;
+		this.type = type;
 	}
 
 	public static class UnknownChannelRequestCodec
 		implements ChannelRequestCodec<UnknownChannelRequest>
 	{
+		private String type;
+
+		public UnknownChannelRequestCodec(String type)
+		{
+			this.type = type;
+		}
+
 		public UnknownChannelRequest decode(InputStream in)
 			throws IOException
 		{
-			UnknownChannelRequest p = new UnknownChannelRequest();
+			UnknownChannelRequest p = new UnknownChannelRequest(type);
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			do {
 				byte[] b = new byte[1024];
@@ -68,6 +72,11 @@ public class UnknownChannelRequest implements ChannelRequest
 		{
 			out.write(p.encoding);
 		}
+	}
+
+	public String getRequestType()
+	{
+		return type;
 	}
 
 	public byte[] getEncoding()

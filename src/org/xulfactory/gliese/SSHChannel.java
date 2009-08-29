@@ -17,6 +17,7 @@
 package org.xulfactory.gliese;
 
 import org.xulfactory.gliese.message.ChannelCloseMessage;
+import org.xulfactory.gliese.message.ChannelDataMessage;
 import org.xulfactory.gliese.message.ChannelFailureMessage;
 import org.xulfactory.gliese.message.ChannelRequestMessage;
 import org.xulfactory.gliese.message.ChannelRequestMessage.ChannelRequest;
@@ -45,22 +46,29 @@ public final class SSHChannel
 	private final ChannelManager manager;
 	private final ChannelInputStream in;
 	private final ChannelInputStream err;
-	private final OutputStream out;
+	private final ChannelOutputStream out;
 	private int exitStatus = -1;
+	private boolean peerClose = false;
 	private boolean closeSent = false;
-	private long windowSize;
-	private long windowRead = 0;
+	private long lSize, rSize;
+	private long lAvailable, rAvailable;
+	private final int rPacketMax;
 	boolean lastReqSuccess = false;
 
-	SSHChannel(int localId, int remoteId, long windowSize, ChannelManager manager)
+	SSHChannel(int localId, int remoteId, long lSize, long rSize,
+		int rPacketMax, ChannelManager manager)
 	{
 		this.localId = localId;
 		this.remoteId = remoteId;
 		this.manager = manager;
-		this.windowSize = windowSize;
+		this.lSize = lSize;
+		this.lAvailable = lSize;
+		this.rSize = rSize;
+		this.rAvailable = rSize;
+		this.rPacketMax = rPacketMax;
 		this.in = new ChannelInputStream();
 		this.err = new ChannelInputStream();
-		this.out = null; // FIXME
+		this.out = new ChannelOutputStream();
 	}
 
 	/**
@@ -101,6 +109,8 @@ public final class SSHChannel
 		if ("exit-status".equals(request.getRequestType())) {
 			exitStatus = ((ExitStatusChannelRequest)request).getStatus();
 			success = true;
+		} else if ("eow@openssh.com".equals(request.getRequestType())) {
+			out.close();
 		} else {
 			GlieseLogger.LOGGER.warn("Unsupported channel request: "
 				+ request.getRequestType());
@@ -130,27 +140,47 @@ public final class SSHChannel
 		return exitStatus;
 	}
 
-	void peerClose() throws SSHException
+	synchronized void peerClose() throws SSHException
 	{
 		// out.peerClose();
-		closeSent = true;
+		peerClose = true;
+		in.close();
+		out.close();
+		err.close();
+		notifyAll();
 	}
 
+	/**
+	 * Closes the channel an wait the peer close message if it has not
+	 * been set.
+	 *
+	 * @throws SSHException
+	 */
 	public void close() throws SSHException
 	{
 		ChannelCloseMessage msg = new ChannelCloseMessage();
 		msg.setChannelId(remoteId);
 		manager.writeMessage(msg);
+		in.close();
+		out.close();
+		err.close();
+		if (peerClose) {
+			return;
+		}
+		synchronized (this) {
+			while (!peerClose) {
+				try {
+					wait();
+				} catch (InterruptedException ie) {
+					// ignore
+				}
+			}
+		}
 	}
 
-	void eow()
+	public synchronized boolean isClosed()
 	{
-		// FIXME
-	}
-
-	public boolean isClosed()
-	{
-		return closeSent;
+		return peerClose && closeSent;
 	}
 
 	public InputStream getInputStream()
@@ -163,16 +193,21 @@ public final class SSHChannel
 		return err;
 	}
 
+	public OutputStream getOutputStream()
+	{
+		return out;
+	}
+
 	void pushData(final byte[] data)
 	{
-		int len = checkWindow(data.length);
+		int len = checkLocalWindow(data.length);
 		in.pushData(data, len);
 		GlieseLogger.LOGGER.debug(String.format("read %d bytes on channel %d", len, localId));
 	}
 
 	void pushExtendedData(final byte[] data, int dataType)
 	{
-		int len = checkWindow(data.length);
+		int len = checkLocalWindow(data.length);
 		if (dataType == 1) {
 			err.pushData(data, len);
 		} else {
@@ -187,9 +222,9 @@ public final class SSHChannel
 	 * @param len  the length of received data
 	 * @param the length of data to be copied on the stream
 	 */
-	private synchronized int checkWindow(int len)
+	private synchronized int checkLocalWindow(int len)
 	{
-		long max = windowSize - windowRead;
+		long max = lAvailable;
 		if (max < len) {
 			GlieseLogger.LOGGER.warn(String.format(
 				"Peer data length exceeds allowed windows " +
@@ -199,19 +234,32 @@ public final class SSHChannel
 		return len;
 	}
 
-	private synchronized void adjustWindow(int len)
+	private synchronized void adjustLocalWindow(int len)
 	{
 		/* double the window size when 75% has been consummed */
-		long threshold = 3L * (windowSize >> 2);
-		windowRead += len;
-		if (windowRead >= threshold) {
-			ChannelWindowsAdjustMessage msg = new ChannelWindowsAdjustMessage(remoteId, windowSize);
+		long threshold = lSize >> 2;
+		lAvailable -= len;
+		if (lAvailable <= threshold) {
+			ChannelWindowsAdjustMessage msg = new ChannelWindowsAdjustMessage(remoteId, lSize);
 			try {
 				manager.writeMessage(msg);
-				windowSize = windowSize << 1;
+				lAvailable += lSize;
+				lSize = lSize << 1;
 			} catch (SSHException se) {
 				GlieseLogger.LOGGER.error("Unable to send message: " + msg);
 			}
+		}
+	}
+
+	void adjustRemoteWindow(long len)
+	{
+		synchronized (out) {
+			rSize += len;
+			rAvailable += len;
+			GlieseLogger.LOGGER.debug(String.format("Increase " +
+				"remote window channel=%d, added bytes=%d",
+				localId, len));
+			out.notifyAll();
 		}
 	}
 
@@ -226,6 +274,7 @@ public final class SSHChannel
 	{
 		private Pipe pipe;
 		private boolean eof = false;
+		private boolean closed = false;
 
 		public ChannelInputStream()
 		{
@@ -250,7 +299,7 @@ public final class SSHChannel
 		public int read() throws IOException
 		{
 			int x = pipe.read();
-			adjustWindow(1);
+			adjustLocalWindow(1);
 			return x;
 		}
 
@@ -264,7 +313,7 @@ public final class SSHChannel
 		public int read(byte[] buf, int off, int len) throws IOException
 		{
 			int l = pipe.read(buf, off, len);
-			adjustWindow(l);
+			adjustLocalWindow(l);
 			return l;
 		}
 
@@ -275,9 +324,62 @@ public final class SSHChannel
 		}
 
 		@Override
-		public void close() throws IOException
+		public void close()
 		{
-			// FIXME
+			this.closed = true;
+		}
+	}
+
+	private class ChannelOutputStream extends OutputStream
+	{
+		private boolean closed = false;
+
+		@Override
+		public void write(int b) throws IOException
+		{
+			write(new byte[] {(byte)b}, 0, 1);
+		}
+
+		@Override
+		public void write(byte[] buf) throws IOException
+		{
+			write(buf, 0, buf.length);
+		}
+
+		@Override
+		public synchronized void write(byte[] buf, int off, int len)
+			throws IOException
+		{
+			while (len > 0) {
+				if (closed) {
+					throw new IOException("Channel is closed");
+				}
+				int l = Math.min((int)Math.min(len, rAvailable),
+					rPacketMax);
+				if (l == 0) {
+					try {
+						wait();
+						continue;
+					} catch (InterruptedException ex) {
+					}
+				}
+				ChannelDataMessage msg = new ChannelDataMessage();
+				msg.setChannelId(remoteId);
+				msg.setData(buf, off, l);
+				try {
+					manager.writeMessage(msg);
+				} catch (SSHException se) {
+					throw new IOException(se);
+				}
+				rAvailable -= l;
+				len -= l;
+			}
+		}
+
+		public synchronized void close()
+		{
+			this.closed = true;
+			notifyAll();
 		}
 	}
 }

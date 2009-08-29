@@ -41,10 +41,8 @@ import java.util.concurrent.BlockingQueue;
  */
 class ChannelManager
 {
-// 	private int DEFAULT_WIN_INIT_SIZE = 0x4000;
-// 	private int DEFAULT_PACKET_MAX_SIZE = 0x1000;
- 	private int DEFAULT_WIN_INIT_SIZE = 0x400;
- 	private int DEFAULT_PACKET_MAX_SIZE = 0x400;
+ 	private int DEFAULT_WIN_INIT_SIZE = 0x4000;
+ 	private int DEFAULT_PACKET_MAX_SIZE = 0x1000;
 
 	private SSHTransport transport;
 	private Map<Integer, SSHChannel> locals;
@@ -109,7 +107,11 @@ class ChannelManager
 			chann.handleRequest(m0.getRequest(), m0.getWantReply());
 			break;
 		case ChannelWindowsAdjustMessage.ID:
-			break; // FIXME
+			ChannelWindowsAdjustMessage m7
+				= (ChannelWindowsAdjustMessage)msg;
+			chann = locals.get(m7.getChannelId());
+			chann.adjustRemoteWindow(m7.getBytesToAdd());
+			break;
 		case ChannelEOFMessage.ID:
 			ChannelEOFMessage m2 = (ChannelEOFMessage)msg;
 			chann = locals.get(m2.getChannelId());
@@ -161,7 +163,9 @@ class ChannelManager
 			throw new SSHException("Unexpected error", ie);
 		}
 		SSHChannel chann = new SSHChannel(conf.getRecipientChannelId(),
-			conf.getSenderChannelId(), DEFAULT_WIN_INIT_SIZE, this);
+			conf.getSenderChannelId(), DEFAULT_WIN_INIT_SIZE,
+			conf.getInitialWindowSize(), conf.getMaxPacketSize(),
+			this);
 		locals.put(conf.getRecipientChannelId(), chann);
 		remotes.put(conf.getSenderChannelId(), chann);
 		return chann;
