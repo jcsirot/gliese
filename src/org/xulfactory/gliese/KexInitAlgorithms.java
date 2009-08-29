@@ -23,11 +23,11 @@ import java.util.List;
  *
  * @author sirot
  */
-public interface SSHAlgorithms
+public interface KexInitAlgorithms
 {
 	List<KeyExchangeAlgorithm> getKexAlgorithms();
 
-	List<BaseCipherAlgorithm> getEncryptionAlgorithms();
+	List<CipherAlgorithm> getEncryptionAlgorithms();
 
 	List<MacAlgorithm> getMacAlgorithms();
 

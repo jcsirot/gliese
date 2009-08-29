@@ -17,49 +17,109 @@
 
 package org.xulfactory.gliese;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+import org.xulfactory.gliese.util.GlieseLogger;
 
 /**
  * Default built-in configuration.
  *
  * @author sirot
  */
-class DefaultAlgorithms implements SSHAlgorithms
+class DefaultAlgorithms implements KexInitAlgorithms
 {
-	private static final List<KeyExchangeAlgorithm> KEX_ALGORITHMS =
-		Arrays.asList(new KeyExchangeAlgorithm[] {
-			DHGroupSHA1.group1(),
-			DHGroupSHA1.group14()
-		}
-	);
+	private final List<KeyExchangeAlgorithm> KEX_ALGORITHMS;
 
-	private static final List<BaseCipherAlgorithm> ENCRYPTION_ALGORITHMS =
-		Arrays.asList(new BaseCipherAlgorithm[] {
-			new BaseCipherAlgorithm("aes128-cbc", "AES/CBC/NoPadding", "AES", 16, 16),
-			new BaseCipherAlgorithm("3des-cbc", "DESede/CBC/NoPadding", "DESede", 8, 24),
-		}
-	);
+	private final List<CipherAlgorithm> ENCRYPTION_ALGORITHMS;
 
-	private static final List<MacAlgorithm> MAC_ALGORITHMS =
-		Arrays.asList(new MacAlgorithm[]{
-			new BaseMacAlgorithm("hmac-sha1", "HmacSHA1", 20, 20),
-			new BaseMacAlgorithm("hmac-md5", "HmacMD5", 16, 16),
-		}
-	);
+	private final List<MacAlgorithm> MAC_ALGORITHMS;
 
-	private static final List<SSHPublicKeyFactory> KEY_ALGORITHMS =
-		Arrays.asList(new SSHPublicKeyFactory [] {
-			new SSHRSAPublicKey.SSHRSAPublicKeyFactory(),
-			new SSHDSSPublicKey.SSHDSSPublicKeyFactory(),
+	private final List<SSHPublicKeyFactory> KEY_ALGORITHMS;
+
+	DefaultAlgorithms(AlgorithmRegistry registry)
+	{
+		this(registry, new Properties());
+	}
+
+	DefaultAlgorithms(AlgorithmRegistry registry, Properties props)
+	{
+		String tmp;
+		tmp = props.getProperty("gliese.kex.kex", "diffie-hellman-group1-sha1, diffie-hellman-group14-sha1");
+		String[] names = tmp.split("\\s*,\\s*");
+		KEX_ALGORITHMS = new ArrayList<KeyExchangeAlgorithm>();
+		setKex(names, registry);
+
+		tmp = props.getProperty("gliese.kex.hostkey", "ssh-rsa, ssh-dss");
+		names = tmp.split("\\s*,\\s*");
+		KEY_ALGORITHMS = new ArrayList<SSHPublicKeyFactory>();
+		setKeyFactories(names, registry);
+
+		tmp = props.getProperty("gliese.kex.cipher", "aes128-cbc, 3des-cbc");
+		names = tmp.split("\\s*,\\s*");
+		ENCRYPTION_ALGORITHMS = new ArrayList<CipherAlgorithm>();
+		setCiphers(names, registry);
+
+		tmp = props.getProperty("gliese.kex.mac", "hmac-sha1, hmac-md5");
+		names = tmp.split("\\s*,\\s*");
+		MAC_ALGORITHMS = new ArrayList<MacAlgorithm>();
+		setMacs(names, registry);
+	}
+
+	private void setKex(String[] names, AlgorithmRegistry registry)
+	{
+		for (String name: names) {
+			KeyExchangeAlgorithm algo = registry.getKex(name);
+			if (algo == null) {
+				GlieseLogger.LOGGER.warn("Unknown key exchange algorithm: "+ name);
+			} else {
+				KEX_ALGORITHMS.add(algo);
+			}
 		}
-	);
+	}
+
+	private void setKeyFactories(String[] names, AlgorithmRegistry registry)
+	{
+		for (String name: names) {
+			SSHPublicKeyFactory algo = registry.getKeyFactory(name);
+			if (algo == null) {
+				GlieseLogger.LOGGER.warn("Unknown server key algorithm: "+ name);
+			} else {
+				KEY_ALGORITHMS.add(algo);
+			}
+		}
+	}
+
+	private void setCiphers(String[] names, AlgorithmRegistry registry)
+	{
+		for (String name: names) {
+			CipherAlgorithm algo = registry.getCipher(name);
+			if (algo == null) {
+				GlieseLogger.LOGGER.warn("Unknown cipher: "+ name);
+			} else {
+				ENCRYPTION_ALGORITHMS.add(algo);
+			}
+		}
+	}
+
+	private void setMacs(String[] names, AlgorithmRegistry registry)
+	{
+		for (String name: names) {
+			MacAlgorithm algo = registry.getMac(name);
+			if (algo == null) {
+				GlieseLogger.LOGGER.warn("Unknown MAC: "+ name);
+			} else {
+				MAC_ALGORITHMS.add(algo);
+			}
+		}
+	}
 
 	public List<KeyExchangeAlgorithm> getKexAlgorithms()
 	{
 		return KEX_ALGORITHMS;
 	}
-	public List<BaseCipherAlgorithm> getEncryptionAlgorithms()
+	public List<CipherAlgorithm> getEncryptionAlgorithms()
 	{
 		return ENCRYPTION_ALGORITHMS;
 	}
