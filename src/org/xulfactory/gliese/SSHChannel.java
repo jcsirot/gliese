@@ -150,6 +150,15 @@ public final class SSHChannel
 		notifyAll();
 	}
 
+	void forceClose()
+	{
+		in.close();
+		out.close();
+		err.close();
+		closeSent = true;
+		peerClose = true;
+	}
+
 	/**
 	 * Closes the channel an wait the peer close message if it has not
 	 * been set.
@@ -164,6 +173,7 @@ public final class SSHChannel
 		in.close();
 		out.close();
 		err.close();
+		closeSent = true;
 		if (peerClose) {
 			return;
 		}

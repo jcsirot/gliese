@@ -426,13 +426,19 @@ public class SSHTransport
 	 */
 	public SSHMessage readMessage(int... ids) throws SSHException
 	{
-		return factory.readMessage(ids);
+		return readMessage(null, ids);
 	}
 
 	public SSHMessage readMessage(String namespace, int... ids)
 		throws SSHException
 	{
-		return factory.readMessage(namespace, ids);
+		SSHMessage m = readMessage(namespace);
+		for (int id: ids) {
+			if (id == m.getID()) {
+				return m;
+			}
+		}
+		throw new SSHException("Unexpected message type: " + m.getID());
 	}
 
 	/**
@@ -446,7 +452,12 @@ public class SSHTransport
 	{
 		SSHMessage m;
 		do {
-			m = factory.readMessage(namespace);
+			try {
+				m = factory.readMessage(namespace);
+			} catch (SSHException se) {
+				close();
+				throw se;
+			}
 			if (m.getID() == DisconnectMessage.ID) {
 				DisconnectMessage msg = (DisconnectMessage)m;
 				GlieseLogger.LOGGER.info("Disconnect message received: " + msg);

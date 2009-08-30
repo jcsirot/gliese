@@ -43,7 +43,7 @@ public class SSHConnection
 	{
 		this.registry = registry;
 		this.properties = props != null ? props : new Properties();
-		this.algos = new DefaultAlgorithms(registry, props);
+		this.algos = new DefaultAlgorithms(registry, properties);
 	}
 
 	public void setHostKeyVerifier(HostKeyVerifier hv)
