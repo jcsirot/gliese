@@ -18,7 +18,6 @@
 package org.xulfactory.gliese;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import org.xulfactory.gliese.util.GlieseLogger;
@@ -70,7 +69,10 @@ class DefaultAlgorithms implements KexInitAlgorithms
 	private void setKex(String[] names, AlgorithmRegistry registry)
 	{
 		for (String name: names) {
-			KeyExchangeAlgorithm algo = registry.getKex(name);
+			if (name == null || "".equals(name)) {
+				continue;
+			}
+			KeyExchangeAlgorithm algo = registry.getKex(name.trim());
 			if (algo == null) {
 				GlieseLogger.LOGGER.warn("Unknown key exchange algorithm: "+ name);
 			} else {
@@ -82,7 +84,10 @@ class DefaultAlgorithms implements KexInitAlgorithms
 	private void setKeyFactories(String[] names, AlgorithmRegistry registry)
 	{
 		for (String name: names) {
-			SSHPublicKeyFactory algo = registry.getKeyFactory(name);
+			if (name == null || "".equals(name)) {
+				continue;
+			}
+			SSHPublicKeyFactory algo = registry.getKeyFactory(name.trim());
 			if (algo == null) {
 				GlieseLogger.LOGGER.warn("Unknown server key algorithm: "+ name);
 			} else {
@@ -94,7 +99,10 @@ class DefaultAlgorithms implements KexInitAlgorithms
 	private void setCiphers(String[] names, AlgorithmRegistry registry)
 	{
 		for (String name: names) {
-			CipherAlgorithm algo = registry.getCipher(name);
+			if (name == null || "".equals(name)) {
+				continue;
+			}
+			CipherAlgorithm algo = registry.getCipher(name.trim());
 			if (algo == null) {
 				GlieseLogger.LOGGER.warn("Unknown cipher: "+ name);
 			} else {
@@ -106,7 +114,10 @@ class DefaultAlgorithms implements KexInitAlgorithms
 	private void setMacs(String[] names, AlgorithmRegistry registry)
 	{
 		for (String name: names) {
-			MacAlgorithm algo = registry.getMac(name);
+			if (name == null || "".equals(name)) {
+				continue;
+			}
+			MacAlgorithm algo = registry.getMac(name.trim());
 			if (algo == null) {
 				GlieseLogger.LOGGER.warn("Unknown MAC: "+ name);
 			} else {
