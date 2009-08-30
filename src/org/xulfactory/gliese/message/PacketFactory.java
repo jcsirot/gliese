@@ -183,15 +183,17 @@ public class PacketFactory
 			}
 			Utils.decodeBytes(in, padlen);
 			if (!in.checkMac()) {
+				GlieseLogger.LOGGER.error("Invalid MAC on message: " + msg);
 				try {
 					writeMessage(new DisconnectMessage(
 						DisconnectMessage.MAC_ERROR,
-						"Bad MAC on input", null));
+						"Bad MAC on input", ""));
 				} catch (SSHException se) {
 					// ignore exception
 				}
 				throw new SSHException("Bad MAC on input");
 			}
+			in.notifyAll();
 			return msg;
 		}
 	}
@@ -214,6 +216,7 @@ public class PacketFactory
 			out.write(padding);
 			out.writeMac();
 			out.flush();
+			out.notifyAll();
 		}
 	}
 
@@ -246,24 +249,6 @@ public class PacketFactory
 		} catch (IOException ioe) {
 			throw new SSHException("I/O exception on write", ioe);
 		}
-	}
-
-	public SSHMessage readMessage(int... ids)
-		throws SSHException
-	{
-		return readMessage(null, ids);
-	}
-
-	public SSHMessage readMessage(String namespace, int... ids)
-		throws SSHException
-	{
-		SSHMessage m = readMessage(namespace);
-		for (int id: ids) {
-			if (id == m.getID()) {
-				return m;
-			}
-		}
-		throw new SSHException("Unexpected message type: " + m.getID());
 	}
 
 	public SSHMessage readMessage(String namespace)

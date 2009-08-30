@@ -41,7 +41,7 @@ import java.util.concurrent.BlockingQueue;
  */
 class ChannelManager
 {
- 	private int DEFAULT_WIN_INIT_SIZE = 0x4000;
+ 	private int DEFAULT_WIN_INIT_SIZE = 0x10000;
  	private int DEFAULT_PACKET_MAX_SIZE = 0x1000;
 
 	private SSHTransport transport;
@@ -71,6 +71,7 @@ class ChannelManager
 						try {
 							channelLoop();
 						} catch (SSHException se) {
+							closeAllChannels();
 							break;
 						}
 					}
@@ -180,5 +181,12 @@ class ChannelManager
 	void writeMessage(SSHMessage msg) throws SSHException
 	{
 		transport.writeMessage(msg);
+	}
+
+	private void closeAllChannels()
+	{
+		for (SSHChannel chann: locals.values()) {
+			chann.forceClose();
+		}
 	}
 }

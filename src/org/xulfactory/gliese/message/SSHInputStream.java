@@ -85,7 +85,7 @@ class SSHInputStream extends InputStream
 		this.index = bs;
 	}
 
-	public void initialize()
+	synchronized void initialize()
 	{
 		if (mac != null) {
 			mac.reset();
@@ -94,7 +94,7 @@ class SSHInputStream extends InputStream
 		seq = (seq + 1) % 0xffffffffL;
 	}
 
-	public boolean checkMac() throws IOException
+	synchronized boolean checkMac() throws IOException
 	{
 		if (mac == null) {
 			return true;
@@ -103,9 +103,9 @@ class SSHInputStream extends InputStream
 		byte[] tmp = new byte[len];
 		int r = len;
 		do {
-			int l = sub.read(tmp);
+			int l = sub.read(tmp, len - r, r);
 			if (l == -1) {
-				throw new IOException("Trunccated input");
+				throw new IOException("Truncated input");
 			}
 			r = r - l;
 		} while (r > 0);
@@ -114,7 +114,7 @@ class SSHInputStream extends InputStream
 	}
 
 	@Override
-	public int read() throws IOException
+	public synchronized int read() throws IOException
 	{
 		if (index >= bs) {
 			int len;
@@ -126,38 +126,41 @@ class SSHInputStream extends InputStream
 			}
 		}
 		int b = buffer[index++];
-		if (b >= 0 && mac != null) {
+		if (mac != null) {
 			mac.update((byte)b);
 		}
 		return b;
 	}
 
 	@Override
-	public int read(byte[] tmp) throws IOException
+	public synchronized int read(byte[] buf) throws IOException
 	{
-		return read(tmp, 0, tmp.length);
+		return read(buf, 0, buf.length);
 	}
 
 	@Override
-	public int read(byte[] tmp, int off, int len) throws IOException
+	public synchronized int read(byte[] buf, int off, int len)
+		throws IOException
 	{
 		int copied = 0;
 		do {
 			if (index >= bs) {
 				int l = getNextBlock();
-				if (l <= 0) {
-					return l;
+				if (l < 0 && copied == 0) {
+					return -1;
+				} else if (copied > 0) {
+					break;
 				}
 			}
 			int av = bs - index;
 			int rem = len - copied;
-			int l = av <= rem ? av : rem;
-			System.arraycopy(buffer, index, tmp, off + copied, l);
+			int l = Math.min(av, rem);
+			System.arraycopy(buffer, index, buf, off + copied, l);
 			index += l;
 			copied += l;
 		} while (copied < len);
 		if (mac != null) {
-			mac.update(tmp, off, copied);
+			mac.update(buf, off, copied);
 		}
 		return copied;
 	}

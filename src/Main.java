@@ -15,21 +15,16 @@
  *  under the License.
  */
 
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.security.KeyFactory;
-import java.security.PrivateKey;
-import java.security.Signature;
-import java.security.spec.RSAPrivateKeySpec;
 import java.util.Arrays;
 import org.xulfactory.gliese.AuthenticationResult;
 import org.xulfactory.gliese.Gliese;
 import org.xulfactory.gliese.SSHChannel;
 import org.xulfactory.gliese.SSHConnection;
 import org.xulfactory.gliese.SSHException;
-import org.xulfactory.gliese.SSHRSAPublicKey;
 import org.xulfactory.gliese.util.GlieseLogger;
 
 /**
@@ -48,6 +43,7 @@ public class Main
 		GlieseLogger.LOGGER.setLevel(GlieseLogger.DEBUG);
 		try {
 			//SSHConnection conn = Gliese.openConnection("192.168.1.101");
+			Gliese.setProperties(new File("gliese.properties"));
 			SSHConnection conn = Gliese.openConnection(args[0]);
 			String username = null;
 			do {
