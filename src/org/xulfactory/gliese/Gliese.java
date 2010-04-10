@@ -104,26 +104,6 @@ public final class Gliese
 		properties.load(props);
 	}
 
-	public static void register(CipherAlgorithm cipher)
-	{
-		registry.register(cipher);
-	}
-
-	public static void register(MacAlgorithm mac)
-	{
-		registry.register(mac);
-	}
-
-	public static void register(KeyExchangeAlgorithm kex)
-	{
-		registry.register(kex);
-	}
-
-	public static void register(SSHPublicKeyFactory kf)
-	{
-		registry.register(kf);
-	}
-
 	private Gliese()
 	{
 	}

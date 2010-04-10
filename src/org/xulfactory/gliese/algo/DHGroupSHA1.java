@@ -1,5 +1,5 @@
 /*
- *  Copyright 2009 Jean-Christophe Sirot <sirot@xulfactory.org>.
+ *  Copyright 2009-2010 Jean-Christophe Sirot <sirot@xulfactory.org>.
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,13 +15,18 @@
  *  under the License.
  */
 
-package org.xulfactory.gliese;
+package org.xulfactory.gliese.algo;
 
+import org.xulfactory.gliese.HostKeyVerifier;
+import org.xulfactory.gliese.KeyExchangeAlgorithm;
+import org.xulfactory.gliese.SSHException;
+import org.xulfactory.gliese.SSHPublicKey;
+import org.xulfactory.gliese.SSHPublicKeyFactory;
+import org.xulfactory.gliese.SSHTransport;
 import org.xulfactory.gliese.message.KexDHInitMessage;
 import org.xulfactory.gliese.message.KexDHReplyMessage;
 import org.xulfactory.gliese.util.GlieseLogger;
 import org.xulfactory.gliese.util.Utils;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,7 +35,7 @@ import java.security.SignatureException;
 import java.util.Random;
 
 /**
- * Implementation of {@code diffie-helman-group1-sha1} and
+ * Base implementation of {@code diffie-helman-group1-sha1} and
  * {@code diffie-helman-group14-sha1} key exchange algorithms.
  *
  * @author sirot
@@ -69,32 +74,39 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 	 */
 	public static final String NAMESPACE = "diffie-hellman-sha1";
 
-	/**
-	 * Retrieves the {@code diffie-helman-group1-sha1} algorithm
-	 */
-	public static DHGroupSHA1 group1()
+	static MessageDigest sha1()
 	{
-		return new DHGroupSHA1(P_1, GROUP_1_NAME);
-	}
-
-	/**
-	 * Retrieves the {@code diffie-helman-group14-sha1} algorithm
-	 */
-	public static DHGroupSHA1 group14()
-	{
-		return new DHGroupSHA1(P_14, GROUP_14_NAME);
-	}
-
-	private static MessageDigest dg;
-
-	static {
 		try {
-			dg = MessageDigest.getInstance("SHA-1");
+			return MessageDigest.getInstance("SHA-1");
 		} catch (NoSuchAlgorithmException nsae) {
 			throw new Error("Message digest algorithm not found",
 				nsae);
 		}
 	}
+
+	/**
+	 * The {@code diffie-helman-group1-sha1} algorithm
+	 */
+	public static class DHGroup1SHA1 extends DHGroupSHA1
+	{
+		public DHGroup1SHA1()
+		{
+			super(GROUP_1_NAME, P_1, sha1());
+		}
+	}
+
+	/**
+	 * The {@code diffie-helman-group14-sha1} algorithm
+	 */
+	public static class DHGroup14SHA1 extends DHGroupSHA1
+	{
+		public DHGroup14SHA1()
+		{
+			super(GROUP_14_NAME, P_14, sha1());
+		}
+	}
+
+	private final MessageDigest dg;
 
 	private BigInteger x, e;
 	private BigInteger p;
@@ -108,16 +120,16 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 	 * @param p     a large prime for DH key exchange
 	 * @param name  the algorithm name
 	 */
-	private DHGroupSHA1(BigInteger p, String name)
+	private DHGroupSHA1(String name, BigInteger p, MessageDigest md)
 	{
 		this.p = p;
+		this.dg = md;
 		this.name = name;
 	}
 
 	/** @see KeyExchangeAlgorithm */
-	public void process(SSHTransport transport,
-		SSHPublicKeyFactory pkf, HostKeyVerifier hv)
-		throws SSHException
+	public void process(SSHTransport transport, SSHPublicKeyFactory pkf,
+		HostKeyVerifier hv) throws SSHException
 	{
 		transport.registerMessageClass(NAMESPACE, KexDHReplyMessage.class);
 		Random rnd = new Random();
@@ -155,7 +167,7 @@ public class DHGroupSHA1 implements KeyExchangeAlgorithm
 		try {
 			verifier.update(h);
 			if(!verifier.verify(reply.getSigBlob())) {
-				GlieseLogger.LOGGER.info("Server authentication failed.");
+				GlieseLogger.LOGGER.warn("Server authentication failed.");
 				throw new SSHException("Server authentication failed.");
 			}
 		} catch (SignatureException se) {
