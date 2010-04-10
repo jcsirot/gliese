@@ -19,9 +19,24 @@
     </developer>
   </developers>
 
+  <scm>
+    <connection>scm:hg:https://jcsirot@bitbucket.org/jcsirot/gliese/</connection>
+    <url>http://bitbucket.org/jcsirot/gliese/src/</url>
+  </scm>
+
   <modules>
     <module>libgliese</module>
   </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.xulfactory</groupId>
+        <artifactId>libgliese</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <pluginManagement>
