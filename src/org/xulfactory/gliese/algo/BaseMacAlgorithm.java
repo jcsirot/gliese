@@ -1,5 +1,5 @@
 /*
- *  Copyright 2009 Jean-Christophe Sirot <sirot@xulfactory.org>.
+ *  Copyright 2009-2010 Jean-Christophe Sirot <sirot@xulfactory.org>.
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,50 +15,45 @@
  *  under the License.
  */
 
-package org.xulfactory.gliese;
+package org.xulfactory.gliese.algo;
 
-import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import org.xulfactory.gliese.MacAlgorithm;
 
 /**
- * Base implementation of {@code CipherAlgorithm}.
+ * Base implementation of {@code MacAlgorithm}.
  *
  * @author sirot
  */
-public class BaseCipherAlgorithm implements CipherAlgorithm
+public class BaseMacAlgorithm implements MacAlgorithm
 {
 	private String name;
 	private int keyLength;
 	private int blockLength;
 	private String algoName;
-	private String keyName;
 
 	/**
-	 * Creates an {@code AlgorithmDescriptor}.
+	 * Creates an {@code MacHandler}.
 	 *
-	 * @param name   the SSH standardized cipher name
-	 * @param algoName   the JCA cipher algorithm name
-	 * @param keyName   the JCA key name
-	 * @param blockLength   the block length in bytes for block cipher
+	 * @param name  the SSH standardized Mac name
+	 * @param algoName  the JCA Mac algorithm name
+	 * @param blockLength   the block length in bytes
 	 * @param keyLength   the key length in bytes
 	 */
-	public BaseCipherAlgorithm(String name, String algoName,
-		String keyName, int blockLength, int keyLength)
+	public BaseMacAlgorithm(String name, String algoName,
+		int blockLength, int keyLength)
 	{
 		this.name = name;
-		this.keyLength = keyLength;
-		this.blockLength = blockLength;
 		this.algoName = algoName;
-		this.keyName = keyName;
+		this.blockLength = blockLength;
+		this.keyLength = keyLength;
 	}
 
-	public int getBlockLength()
+	public int getLength()
 	{
 		return blockLength;
 	}
@@ -73,22 +68,17 @@ public class BaseCipherAlgorithm implements CipherAlgorithm
 		return name;
 	}
 
-	public Cipher getInstance(byte[] key, byte[] iv, int mode)
+	public Mac getInstance(byte[] key)
 	{
 		try {
-			Cipher c = Cipher.getInstance(algoName);
-			IvParameterSpec params = new IvParameterSpec(iv);
-			Key skey = new SecretKeySpec(key, keyName);
-			c.init(mode, skey, params);
-			return c;
-		} catch (InvalidAlgorithmParameterException iae) {
-			throw new Error(iae);// FIXME
+			Mac mac = Mac.getInstance(algoName);
+			Key skey = new SecretKeySpec(key, algoName);
+			mac.init(skey);
+			return mac;
 		} catch (NoSuchAlgorithmException nsae) {
 			throw new Error(nsae);// FIXME
 		} catch (InvalidKeyException ike) {
 			throw new Error(ike);// FIXME
-		} catch (NoSuchPaddingException nspe) {
-			throw new Error(nspe);// FIXME
 		}
 	}
 }

@@ -168,7 +168,7 @@ public class PacketFactory
 			Class<? extends SSHMessage> klass
 				= getMessageClass(msgType, namespace);
 			if (klass == null) {
-				throw new IOException("Unsupported message type: " + msgType);
+				throw new SSHException("Unsupported message type: " + msgType);
 			}
 			SSHMessage msg;
 			try {

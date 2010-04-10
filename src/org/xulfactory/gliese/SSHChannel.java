@@ -1,5 +1,5 @@
 /*
- *  Copyright 2009 Jean-Christophe Sirot <sirot@xulfactory.org>.
+ *  Copyright 2009-2010 Jean-Christophe Sirot <sirot@xulfactory.org>.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -80,6 +80,7 @@ public final class SSHChannel
 	 */
 	public void execCommand(String command) throws SSHException
 	{
+		GlieseLogger.LOGGER.info("Executing command '" + command + "'");
 		lastReqSuccess = false;
 		ChannelRequestMessage msg = new ChannelRequestMessage();
 		msg.setChannelId(remoteId);

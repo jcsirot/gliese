@@ -21,6 +21,9 @@ import org.xulfactory.gliese.message.PacketFactory;
 import org.xulfactory.gliese.message.KexInitMessage;
 import org.xulfactory.gliese.message.NewKeysMessage;
 import org.xulfactory.gliese.message.SSHMessage;
+import org.xulfactory.gliese.message.DebugMessage;
+import org.xulfactory.gliese.message.DisconnectMessage;
+import org.xulfactory.gliese.util.GlieseLogger;
 import org.xulfactory.gliese.util.Utils;
 
 import java.io.BufferedReader;
@@ -46,9 +49,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
-import org.xulfactory.gliese.message.DebugMessage;
-import org.xulfactory.gliese.message.DisconnectMessage;
-import org.xulfactory.gliese.util.GlieseLogger;
 
 /**
  * Handler on the transport layer.
@@ -69,8 +69,8 @@ public class SSHTransport
 		return names.toArray(new String[0]);
 	}
 
-	private static final  <T extends SSHAlgorithm> T getAlgorithm(List<T> algos, String name)
-		throws SSHException
+	private static final  <T extends SSHAlgorithm> T getAlgorithm(
+		List<T> algos, String name) throws SSHException
 	{
 		for (T algo: algos) {
 			if (algo.getName().equals(name)) {
@@ -119,8 +119,8 @@ public class SSHTransport
 	private Map<String, CipherAlgorithm> cipherAlgos;
 	private Map<String, MacAlgorithm> macAlgos;
 
-	SSHTransport(String host, int port, KexInitAlgorithms algos, HostKeyVerifier hv)
-		throws IOException
+	SSHTransport(String host, int port, KexInitAlgorithms algos,
+		HostKeyVerifier hv) throws IOException
 	{
 		this.algos = algos;
 		InetSocketAddress addr = new InetSocketAddress(host, port);

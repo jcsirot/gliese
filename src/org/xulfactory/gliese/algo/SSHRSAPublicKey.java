@@ -1,5 +1,5 @@
 /*
- *  Copyright 2009 Jean-Christophe Sirot <sirot@xulfactory.org>.
+ *  Copyright 2009-2010 Jean-Christophe Sirot <sirot@xulfactory.org>.
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  *  under the License.
  */
 
-package org.xulfactory.gliese;
+package org.xulfactory.gliese.algo;
 
 import org.xulfactory.gliese.util.GlieseLogger;
 import org.xulfactory.gliese.util.Utils;
@@ -29,34 +29,39 @@ import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.Signature;
-import java.security.spec.DSAPublicKeySpec;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.RSAPublicKeySpec;
+import org.xulfactory.gliese.SSHException;
+import org.xulfactory.gliese.SSHPublicKey;
+import org.xulfactory.gliese.SSHPublicKeyFactory;
 
 /**
- * Implementation of {@code ssh-dss} public key.
+ * Implementation of {@code ssh-rsa} public key.
  *
  * @author sirot
  */
-public class SSHDSSPublicKey implements SSHPublicKey
+public class SSHRSAPublicKey implements SSHPublicKey
 {
-	private static final String NAME = "ssh-dss";
+	private static final String NAME = "ssh-rsa";
 
-	private BigInteger p;
-	private BigInteger q;
-	private BigInteger g;
-	private BigInteger y;
+	private BigInteger e;
+	private BigInteger n;
 
-	private SSHDSSPublicKey(byte[] encoding) throws SSHException
+	private SSHRSAPublicKey(byte[] encoding) throws SSHException
 	{
 		decode(encoding);
 	}
 
-	public SSHDSSPublicKey(BigInteger p, BigInteger q, BigInteger g, BigInteger y)
+	/**
+	 * Creates a new {@code SSHRSAPublicKey} instance.
+	 *
+	 * @param n  the modulus
+	 * @param e  the public exponent
+	 */
+	public SSHRSAPublicKey(BigInteger n, BigInteger e)
 	{
-		this.p = p;
-		this.q = q;
-		this.g = g;
-		this.y = y;
+		this.e = e;
+		this.n = n;
 	}
 
 	private void decode(byte[] key) throws SSHException
@@ -68,10 +73,8 @@ public class SSHDSSPublicKey implements SSHPublicKey
 				GlieseLogger.LOGGER.error("Invalid host key algorithm: " + format);
 				throw new SSHException("Invalid host key algorithm: " + format);
 			}
-			p = Utils.decodeBigInt(in);
-			q = Utils.decodeBigInt(in);
-			g = Utils.decodeBigInt(in);
-			y = Utils.decodeBigInt(in);
+			e = Utils.decodeBigInt(in);
+			n = Utils.decodeBigInt(in);
 		} catch (IOException ioe) {
 			GlieseLogger.LOGGER.error("Host key invalid encoding", ioe);
 			throw new SSHException("Host key invalid encoding", ioe);
@@ -83,23 +86,21 @@ public class SSHDSSPublicKey implements SSHPublicKey
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		try {
 			Utils.encodeString(out, NAME);
-			Utils.encodeBigInt(out, p);
-			Utils.encodeBigInt(out, q);
-			Utils.encodeBigInt(out, g);
-			Utils.encodeBigInt(out, y);
+			Utils.encodeBigInt(out, e);
+			Utils.encodeBigInt(out, n);
 		} catch (IOException ioe) {
 			// does not happen
 		}
-		return out.toByteArray();
+		return out.toByteArray();		
 	}
 
 	public Signature getVerifier() throws SSHException
 	{
-		DSAPublicKeySpec spec = new DSAPublicKeySpec(y, p, q, g);
+		RSAPublicKeySpec spec = new RSAPublicKeySpec(n, e);
 		try {
-			KeyFactory kf = KeyFactory.getInstance("DSA");
+			KeyFactory kf = KeyFactory.getInstance("RSA");
 			PublicKey k = kf.generatePublic(spec);
-			Signature sig = Signature.getInstance("SHA1withDSA");
+			Signature sig = Signature.getInstance("SHA1withRSA");
 			sig.initVerify(k);
 			return sig;
 		} catch (NoSuchAlgorithmException nsae) {
@@ -115,43 +116,23 @@ public class SSHDSSPublicKey implements SSHPublicKey
 	}
 
 	/**
-	 * Retrieves the prime number, p.
+	 * Retrieves the public exponent.
 	 *
-	 * @return p
+	 * @return the public exponent
 	 */
-	public BigInteger getP()
+	public BigInteger getE()
 	{
-		return p;
+		return e;
 	}
 
 	/**
-	 * Retrieves the subprime, q.
+	 * Retrieves the modulus.
 	 *
-	 * @return q
+	 * @return the modulus
 	 */
-	public BigInteger getQ()
+	public BigInteger getN()
 	{
-		return q;
-	}
-
-	/**
-	 * Retrieves the public key, y.
-	 *
-	 * @return y
-	 */
-	public BigInteger getY()
-	{
-		return y;
-	}
-
-	/**
-	 * Retrieves the base, g.
-	 *
-	 * @return g
-	 */
-	public BigInteger getG()
-	{
-		return g;
+		return n;
 	}
 
 	public String getName()
@@ -159,7 +140,10 @@ public class SSHDSSPublicKey implements SSHPublicKey
 		return NAME;
 	}
 
-	public static class SSHDSSPublicKeyFactory implements SSHPublicKeyFactory
+	/**
+	 * {@code ssh-rsa} public key factory.
+	 */
+	public static class SSHRSAPublicKeyFactory implements SSHPublicKeyFactory
 	{
 
 		public String getName()
@@ -169,7 +153,7 @@ public class SSHDSSPublicKey implements SSHPublicKey
 
 		public SSHPublicKey decode(byte[] key) throws SSHException
 		{
-			return new SSHDSSPublicKey(key);
+			return new SSHRSAPublicKey(key);
 		}
 
 	}

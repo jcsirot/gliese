@@ -1,5 +1,5 @@
 /*
- *  Copyright 2009 Jean-Christophe Sirot <sirot@xulfactory.org>.
+ *  Copyright 2009-2010 Jean-Christophe Sirot <sirot@xulfactory.org>.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ class ChannelManager
  	private int DEFAULT_WIN_INIT_SIZE = 0x10000;
  	private int DEFAULT_PACKET_MAX_SIZE = 0x1000;
 
-	private SSHTransport transport;
+	private volatile SSHTransport transport;
 	private Map<Integer, SSHChannel> locals;
 	private Map<Integer, SSHChannel> remotes;
 	private int chanId = 1;

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2009 Jean-Christophe Sirot <sirot@xulfactory.org>.
+ *  Copyright 2009-2010 Jean-Christophe Sirot <sirot@xulfactory.org>.
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.xulfactory.gliese;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 /**
  * Registry containing all supported algorithms
@@ -37,14 +38,26 @@ final class AlgorithmRegistry
 
 	public AlgorithmRegistry()
 	{
-		register(DHGroupSHA1.group1());
-		register(DHGroupSHA1.group14());
-		register(new BaseCipherAlgorithm("aes128-cbc", "AES/CBC/NoPadding", "AES", 16, 16));
-		register(new BaseCipherAlgorithm("3des-cbc", "DESede/CBC/NoPadding", "DESede", 8, 24));
-		register(new BaseMacAlgorithm("hmac-sha1", "HmacSHA1", 20, 20));
-		register(new BaseMacAlgorithm("hmac-md5", "HmacMD5", 16, 16));
-		register(new SSHRSAPublicKey.SSHRSAPublicKeyFactory());
-		register(new SSHDSSPublicKey.SSHDSSPublicKeyFactory());
+		ServiceLoader<KeyExchangeAlgorithm> kexLoader =
+			ServiceLoader.load(KeyExchangeAlgorithm.class);
+		for (KeyExchangeAlgorithm kex: kexLoader) {
+			register(kex);
+		}
+		ServiceLoader<CipherAlgorithm> cipherLoader =
+			ServiceLoader.load(CipherAlgorithm.class);
+		for (CipherAlgorithm cipher: cipherLoader) {
+			register(cipher);
+		}
+		ServiceLoader<MacAlgorithm> macLoader =
+			ServiceLoader.load(MacAlgorithm.class);
+		for (MacAlgorithm mac: macLoader) {
+			register(mac);
+		}
+		ServiceLoader<SSHPublicKeyFactory> keyfactoryLoader =
+			ServiceLoader.load(SSHPublicKeyFactory.class);
+		for (SSHPublicKeyFactory kf: keyfactoryLoader) {
+			register(kf);
+		}
 	}
 
 	void register(KeyExchangeAlgorithm kex)
