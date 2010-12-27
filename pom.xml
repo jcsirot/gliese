@@ -21,6 +21,7 @@
 
   <scm>
     <connection>scm:hg:https://bitbucket.org/jcsirot/gliese</connection>
+    <developerConnection>scm:hg:${staging.hg.repo.url}</developerConnection>    
     <url>http://bitbucket.org/jcsirot/gliese/src/</url>
   </scm>
 
@@ -60,6 +61,10 @@
       </plugins>
     </pluginManagement>
   </build>
+  
+  <properties>
+    <staging.hg.repo.url>file://${basedir}</staging.hg.repo.url>
+  </properties>
 
 </project>
 
