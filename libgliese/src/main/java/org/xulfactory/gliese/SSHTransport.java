@@ -41,6 +41,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +58,9 @@ import javax.crypto.Mac;
  */
 public class SSHTransport
 {
+	public static final String GLIESE_VERSION = "0.1";
 	private static final String VER_EX_REGEXP = "^SSH-(\\S+)-(\\S+)(\\s+\\S)*";
-	private static final String VERSION = "SSH-2.0-Gliese_{0} {1}";
+	private static final String VERSION = "SSH-2.0-Gliese_%s %s-%s";
 
 	private static final <T extends SSHAlgorithm> String[] listNames(List<T> algos)
 	{
@@ -192,9 +194,9 @@ public class SSHTransport
 		}
 		vs = line.getBytes("ASCII");
 
-		String thisVersion = MessageFormat.format(VERSION, "0.1",
-				System.getProperty("os.name") + "-" +
-				System.getProperty("os.arch"));
+		String thisVersion = new Formatter().format(VERSION, GLIESE_VERSION,
+				System.getProperty("os.name"), System.getProperty("os.arch"))
+				.toString();
 
 		vc = thisVersion.getBytes("ASCII");
 		out.write(vc);
