@@ -34,7 +34,7 @@
       <dependency>
         <groupId>org.xulfactory</groupId>
         <artifactId>libgliese</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
