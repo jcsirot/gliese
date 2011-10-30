@@ -1,0 +1,1082 @@
+25 oct. 2011 22:17:26 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:18:54 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:18:54 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:20:36 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:21:29 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:22:14 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:22:14 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:22:34 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:23:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:23:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:27:03 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:28:47 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:28:47 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:30:51 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:30:51 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:30:51 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:30:51 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:35:53 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:35:53 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:35:53 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:35:53 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:39:50 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:39:50 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:40:24 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:40:24 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:45:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:45:43 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:45:51 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:45:51 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:45:51 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:45:51 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 22:55:38 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:55:38 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 22:55:38 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 22:55:38 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:01:16 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:01:16 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:01:16 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:01:16 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:01:16 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:01:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:01:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:01:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:01:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:01:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:01:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:05:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:05:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:05:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:05:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:05:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:05:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:05:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:05:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:05:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:05:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:05:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:05:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:08:16 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:08:16 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:08:16 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:08:16 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:08:16 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:08:16 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:09:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:09:04 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:09:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:09:04 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:09:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:09:05 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:10:08 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:10:08 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:10:08 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:10:08 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:10:08 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:10:08 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:14:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:14:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:14:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:14:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:14:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:14:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:14:27 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:14:27 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:14:27 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:14:27 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:14:27 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:14:27 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:18:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:18:43 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:18:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:18:43 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:18:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:18:43 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:21:59 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:21:59 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:21:59 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:21:59 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:21:59 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:21:59 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:24:19 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:24:19 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:24:19 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:24:19 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:24:19 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:24:19 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:26:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:26:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:26:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:26:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:26:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:26:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:26:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:26:31 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:26:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:26:31 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:26:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:26:31 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:37:14 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:37:14 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:37:14 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:37:14 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:37:14 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:37:14 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:37:51 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:37:51 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:37:51 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:37:51 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:37:51 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:37:51 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:38:55 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:38:55 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:38:55 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:38:55 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:38:55 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:38:55 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:39:25 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:39:25 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:39:25 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:39:25 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:39:25 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:39:25 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+25 oct. 2011 23:42:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:42:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+25 oct. 2011 23:42:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+25 oct. 2011 23:42:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+25 oct. 2011 23:42:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+25 oct. 2011 23:42:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+26 oct. 2011 00:15:54 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 00:15:54 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+26 oct. 2011 00:15:54 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 00:15:54 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+26 oct. 2011 00:15:54 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+26 oct. 2011 00:15:54 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+26 oct. 2011 00:16:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 00:16:04 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+26 oct. 2011 00:16:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 00:16:04 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+26 oct. 2011 00:16:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+26 oct. 2011 00:16:04 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+26 oct. 2011 00:16:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 00:16:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+26 oct. 2011 00:16:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 00:16:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+26 oct. 2011 00:16:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+26 oct. 2011 00:16:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+26 oct. 2011 00:17:13 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 00:17:13 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+26 oct. 2011 00:17:13 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 00:17:13 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+26 oct. 2011 00:17:13 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+26 oct. 2011 00:17:13 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+26 oct. 2011 07:15:08 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 07:15:08 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+26 oct. 2011 07:15:08 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+26 oct. 2011 07:15:08 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+26 oct. 2011 07:15:08 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+26 oct. 2011 07:15:08 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+28 oct. 2011 07:37:11 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+28 oct. 2011 07:37:11 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+28 oct. 2011 07:37:11 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+28 oct. 2011 07:37:11 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+28 oct. 2011 07:37:11 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+28 oct. 2011 07:37:11 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+28 oct. 2011 08:03:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+28 oct. 2011 08:03:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+28 oct. 2011 08:03:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+28 oct. 2011 08:03:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+28 oct. 2011 08:03:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+28 oct. 2011 08:03:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 11:16:27 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:16:27 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 11:16:27 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:16:27 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 11:16:27 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 11:16:27 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 11:24:37 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:25:53 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:33:03 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:33:17 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:33:17 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 11:33:17 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:33:17 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 11:33:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 11:33:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 11:33:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:41:40 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:41:40 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 11:41:40 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:41:40 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 11:41:40 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 11:41:40 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 11:41:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:44:00 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:44:55 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:44:55 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 11:44:55 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:44:55 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 11:44:55 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 11:44:55 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 11:44:55 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:45:22 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:47:01 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:47:01 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 11:47:01 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:47:01 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 11:47:01 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 11:47:01 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 11:47:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:47:20 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 11:50:30 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:50:30 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 11:50:30 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:50:30 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 11:50:30 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 11:50:30 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 11:50:30 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:52:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:52:43 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 11:52:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 11:52:43 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 11:52:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 11:52:43 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 11:52:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 11:52:43 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 14:17:59 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 14:17:59 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 14:17:59 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 14:17:59 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 14:17:59 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 14:17:59 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 14:17:59 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 14:17:59 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:08:50 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:08:50 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:08:50 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:08:50 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:08:50 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:08:50 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:08:50 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:08:50 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:14:33 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:14:33 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:14:33 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:14:33 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:14:33 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:14:33 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:14:33 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:14:33 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:14:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:14:41 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:14:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:14:41 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:14:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:14:41 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:14:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:14:41 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:15:03 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:15:03 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:15:03 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:15:03 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:15:03 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:15:03 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:15:03 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:15:03 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:19:58 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:42:06 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:42:07 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:42:07 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:42:07 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:42:07 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:42:07 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:42:07 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 18:42:07 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:42:07 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:42:41 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:49:11 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:49:58 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:52:19 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:52:42 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 18:59:09 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:06:28 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:06:39 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:09:06 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:09:06 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:09:06 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:09:06 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:09:06 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:09:06 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:09:06 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:09:07 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:09:07 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:09:07 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:09:07 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:09:48 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:09:48 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:09:48 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:09:48 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:09:49 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:09:49 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:09:49 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:09:49 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:09:49 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:09:49 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:09:49 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:10:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:10:31 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:10:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:10:31 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:10:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:10:31 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:10:31 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:10:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:10:32 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:11:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:11:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:11:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:11:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:11:18 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:11:18 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:11:18 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:11:19 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:11:19 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:12:44 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:32:30 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:32:30 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:32:30 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:32:30 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:32:30 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:32:30 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:32:30 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:32:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:32:31 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:32:31 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:34:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:36:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:38:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:38:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:38:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:38:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:38:15 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:38:15 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:38:15 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:38:16 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:38:16 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:38:16 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:38:16 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:38:52 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:39:21 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:40:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:40:04 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:40:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:40:04 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:40:04 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:40:04 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:40:04 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:40:05 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:40:05 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:40:05 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:40:05 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:44:17 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:45:48 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:47:43 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:48:02 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:48:09 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:49:48 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='password'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='password'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='password'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='keyboard-interactive'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='keyboard-interactive'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager getAuthenticationMethods
+INFO: Listing authentication methods user='user'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication failed user='user', method='publickey'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager authenticate
+INFO: Starting authentication user='user', method='publickey'
+30 oct. 2011 19:50:01 org.xulfactory.gliese.AuthenticationManager log
+INFO: Authentication granted user='user', method='publickey'

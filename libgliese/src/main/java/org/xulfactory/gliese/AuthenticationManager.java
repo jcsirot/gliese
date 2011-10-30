@@ -17,6 +17,7 @@
 
 package org.xulfactory.gliese;
 
+import org.xulfactory.gliese.message.KeyboardInteractiveMethodData;
 import org.xulfactory.gliese.message.ServiceAcceptMessage;
 import org.xulfactory.gliese.message.ServiceRequestMessage;
 import org.xulfactory.gliese.message.PasswordMethodData;
@@ -25,12 +26,15 @@ import org.xulfactory.gliese.message.SSHMessage;
 import org.xulfactory.gliese.message.UserAuthRequestMessage;
 import org.xulfactory.gliese.message.UserAuthBannerMessage;
 import org.xulfactory.gliese.message.UserAuthFailureMessage;
-import org.xulfactory.gliese.message.UserAuthPublicKeyOk;
 import org.xulfactory.gliese.message.UserAuthSuccessMessage;
 import org.xulfactory.gliese.util.GlieseLogger;
 import org.xulfactory.gliese.util.Utils;
-
+import org.xulfactory.gliese.message.UserAuthInfoRequest;
+import org.xulfactory.gliese.message.UserAuthInfoResponse;
+import org.xulfactory.gliese.message.UserAuthPublicKeyOk;
 import java.security.Signature;
+import java.security.SignatureException;
+import java.util.Iterator;
 
 /**
  *
@@ -80,21 +84,15 @@ class AuthenticationManager
 	public String[] getAuthenticationMethods(String username)
 		throws SSHException
 	{
-		UserAuthRequestMessage pm = new UserAuthRequestMessage();
-		pm.setUser(username);
-		pm.setService("ssh-connection");
-		return sendAuthentication(pm).getAuthenticationThatCanContinue();
+		GlieseLogger.LOGGER.info(String.format("Listing authentication methods user='%s'", username));
+		return sendAuthentication(new MethodsAuthenticationDialog(username)).getAuthenticationThatCanContinue();
 	}
 
 	AuthenticationResult authenticate(String username, char[] password)
 		throws SSHException
 	{
 		GlieseLogger.LOGGER.info(String.format("Starting authentication user='%s', method='%s'", username, "password"));
-		UserAuthRequestMessage pm = new UserAuthRequestMessage();
-		pm.setUser(username);
-		pm.setService("ssh-connection");
-		pm.setAuthenticationData(new PasswordMethodData(password));
-		AuthenticationResult result = sendAuthentication(pm);
+		AuthenticationResult result = sendAuthentication(new PasswordAuthenticationDialog(username, password));
 		log(result, username, "password");
 		return result;
 	}
@@ -103,54 +101,247 @@ class AuthenticationManager
 		throws SSHException
 	{
 		GlieseLogger.LOGGER.info(String.format("Starting authentication user='%s', method='%s'", username, "publickey"));
-		UserAuthRequestMessage pm = new UserAuthRequestMessage();
-		pm.setUser(username);
-		pm.setService("ssh-connection");
-		PublicKeyMethodData md = new PublicKeyMethodData(key.getName(), key.encode());
-		md.prepareTBS();
-		pm.setAuthenticationData(md);
-		byte[] sig = null;
-		try {
-			signer.update(Utils.encodeBytes(transport.getSessionId()));
-			signer.update(pm.getEncoding());
-			sig = signer.sign();
-		} catch (Exception e) {
-			throw new SSHException("Signature failed", e);
-		}
-		md = new PublicKeyMethodData(key.getName(), key.encode());
-		md.setSignature(sig);
-		pm.setAuthenticationData(md);
-		AuthenticationResult result = sendAuthentication(pm);
+		AuthenticationResult result = sendAuthentication(new PublicKeyAuthenticationDialog(username, key, signer, transport));
 		log(result, username, "publickey");
 		return result;
 	}
-
-	private AuthenticationResult sendAuthentication(UserAuthRequestMessage req)
+	
+	AuthenticationResult authenticate(String username, final KeyboardInteraction kbi)
 		throws SSHException
 	{
-		transport.writeMessage(req);
+		GlieseLogger.LOGGER.info(String.format("Starting authentication user='%s', method='%s'", username, "keyboard-interactive"));
+		AuthenticationResult result = sendAuthentication(new KeyboardInteractiveDialog(username, kbi));
+		log(result, username, "keyboard-interactive");
+		return result;
+	}
+
+	private AuthenticationResult sendAuthentication(AuthenticationDialog cb)
+		throws SSHException
+	{
 		AuthenticationResult result = null;
+		SSHMessage msg = null;
 		while (result == null) {
-			SSHMessage msg = transport.readMessage();
+			transport.writeMessage(cb.interact(msg));
+			msg = transport.readMessage(cb.getMethod()); //FIXME
 			switch (msg.getID()) {
 			case UserAuthBannerMessage.ID:
 				String message = ((UserAuthBannerMessage)msg).getMessage();
 				System.out.println(message);
 				break;
 			case UserAuthFailureMessage.ID:
-				UserAuthFailureMessage fail = (UserAuthFailureMessage)msg;
-				result = AuthenticationResult.failure(
-					fail.isPartialSuccess(),
-					fail.getAuthenticationsThatCanContinue());
+				result = generateFailure((UserAuthFailureMessage)msg);
 				break;
 			case UserAuthSuccessMessage.ID:
 				result = AuthenticationResult.success();
 				authenticated = true;
 				break;
-			case UserAuthPublicKeyOk.ID:
-				throw new UnsupportedOperationException();
+			default:
+				if (msg.getID() < 60 || msg.getID() > 69) {
+					GlieseLogger.LOGGER.error(String.format("Unexpected server message with ID=%d", msg.getID()));
+					throw new SSHException("Unexpected server message");
+				}
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Generate a failure authentication result
+	 * 
+	 * @param fail  the server failure message
+	 * @return the {@code AuthenticationResult}
+	 */
+	AuthenticationResult generateFailure(UserAuthFailureMessage fail)
+	{
+		AuthenticationResult result = AuthenticationResult.failure(
+			fail.isPartialSuccess(),
+			fail.getAuthenticationsThatCanContinue());
+		return result;
+	}
+	
+	/**
+	 * Handles messages between the server and the client for authentication
+	 */
+	private static abstract class AuthenticationDialog
+	{
+		private final String username;
+		
+		protected AuthenticationDialog(String username)
+		{
+			this.username = username;
+		}
+		
+		protected String getUsername()
+		{
+			return username;
+		}
+		
+		/**
+		 * Initializes a new {@code UserAuthRequestMessage} with the username
+		 * and the requested service.
+		 * 
+		 * @return a new {@code UserAuthRequestMessage}
+		 */
+		protected UserAuthRequestMessage initUserAuthRequestMessage()
+		{
+			UserAuthRequestMessage msg = new UserAuthRequestMessage();
+			msg.setUser(username);
+			msg.setService("ssh-connection");
+			return msg;
+		}
+	
+		/**
+		 * Retrieves the authentication method name. This name is used to 
+		 * distinguish messages sharing the same ID.
+		 * 
+		 * @return the method name
+		 */
+		public abstract String getMethod();
+		
+		/**
+		 * Read the last message from the server and send a response message.
+		 * @param lastMessage the server last message. May be {@code null}
+		 * for the first messsage; in that case the returned message must be
+		 * a {@code UserAuthRequestMessage}.
+		 * 
+		 * @return the client response message in the authentication dialog with
+		 * the server
+		 */
+		public abstract SSHMessage interact(SSHMessage lastMessage)
+				throws SSHException;
+	}
+	
+	private static class MethodsAuthenticationDialog extends AuthenticationDialog
+	{
+		MethodsAuthenticationDialog(String username)
+		{
+			super(username);
+		}
+		
+		@Override
+		public SSHMessage interact(SSHMessage lastMessage)
+		{
+			return initUserAuthRequestMessage();
+		}
+
+		@Override
+		public String getMethod()
+		{
+			return "none";
+		}
+	}
+	
+	private static class PublicKeyAuthenticationDialog extends AuthenticationDialog
+	{
+		private final SSHPublicKey key;
+		private final Signature signer;
+		private final SSHTransport transport;
+
+		public PublicKeyAuthenticationDialog(String username, SSHPublicKey key, Signature signer, SSHTransport transport)
+		{
+			super(username);
+			this.key = key;
+			this.signer = signer;
+			this.transport = transport;
+		}
+
+		@Override
+		public String getMethod()
+		{
+			return "publickey";
+		}
+
+		@Override
+		public SSHMessage interact(SSHMessage lastMessage) throws SSHException
+		{
+			if (lastMessage == null) {
+				UserAuthRequestMessage msg = initUserAuthRequestMessage();
+				PublicKeyMethodData md = new PublicKeyMethodData(key.getName(), key.encode());
+				msg.setAuthenticationData(md);
+				return msg;
+			} else if (lastMessage.getID() == UserAuthPublicKeyOk.ID) {
+				UserAuthRequestMessage msg = initUserAuthRequestMessage();
+				PublicKeyMethodData md = new PublicKeyMethodData(key.getName(), key.encode());
+				md.prepareTBS();
+				msg.setAuthenticationData(md);
+				byte[] sig = null;
+				try {
+					signer.update(Utils.encodeBytes(transport.getSessionId()));
+					signer.update(msg.getEncoding());
+					sig = signer.sign();
+				} catch (SignatureException e) {
+					throw new SSHException("Signature failed", e);
+				}
+				md = new PublicKeyMethodData(key.getName(), key.encode());
+				md.setSignature(sig);
+				msg.setAuthenticationData(md);
+				return msg;
+			}
+			throw new UnsupportedOperationException("Not supported yet.");
+		}
+	}
+
+	private static class PasswordAuthenticationDialog extends AuthenticationDialog 
+	{
+		private final char[] password;
+
+		public PasswordAuthenticationDialog(String username, char[] password)
+		{
+			super(username);
+			this.password = password;
+		}
+		
+		@Override
+		public SSHMessage interact(SSHMessage lastMessage)
+		{
+			UserAuthRequestMessage msg = initUserAuthRequestMessage();
+			msg.setAuthenticationData(new PasswordMethodData(password));
+			return msg;
+		}
+
+		@Override
+		public String getMethod()
+		{
+			return "password";
+		}
+	}
+	
+	private static class KeyboardInteractiveDialog extends AuthenticationDialog
+	{
+		private final KeyboardInteraction kbi;
+
+		public KeyboardInteractiveDialog(String username, KeyboardInteraction kbi)
+		{
+			super(username);
+			this.kbi = kbi;
+		}
+		
+		@Override
+		public SSHMessage interact(SSHMessage lastMessage)
+		{
+			if (lastMessage == null) {
+				UserAuthRequestMessage msg = initUserAuthRequestMessage();
+				msg.setAuthenticationData(new KeyboardInteractiveMethodData(""));
+				return msg;
+			}
+			UserAuthInfoRequest req = (UserAuthInfoRequest)lastMessage;
+			if (req.getInstruction() != null) {
+				kbi.prompt(req.getInstruction());
+			}
+			Iterator<UserAuthInfoRequest.Prompt> it = req.promptIterator();
+			UserAuthInfoResponse rsp = new UserAuthInfoResponse();
+			while (it.hasNext()) {
+				UserAuthInfoRequest.Prompt prompt = it.next();
+				String reply = kbi.reply(prompt.getPrompt(), prompt.isEcho());
+				rsp.addResponse(reply);
+			}
+			return rsp;
+		}
+
+		@Override
+		public String getMethod()
+		{
+			return "keyboard-interactive";
+		}
 	}
 }

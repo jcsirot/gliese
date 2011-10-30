@@ -116,6 +116,7 @@ public class UserAuthRequestMessage extends SSHMessage
 	public void setAuthenticationData(AuthenticationMethodData authData)
 	{
 		this.authData = authData;
+		this.method = authData.getMethod();
 	}
 
 	private AuthenticationMethodData decode(String method, InputStream in)
