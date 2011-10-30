@@ -129,6 +129,11 @@ public class SSHTransport
 		socket.connect(addr);
 		address = socket.getInetAddress();
 		this.hv = hv != null ? hv : new ConsoleHostKeyVerifier();
+//		this.hv = hv != null ? hv : new HostKeyVerifier() {
+//			public boolean isTrusted(SSHTransport transport, String name, byte[] key) {
+//				return true;
+//			}
+//		};
 	}
 
 	/**

@@ -87,6 +87,7 @@ public class PacketFactory
 		register(UserAuthSuccessMessage.class);
 		register(UserAuthBannerMessage.class);
 		register(UserAuthPublicKeyOk.class);
+		register("keyboard-interactive", UserAuthInfoRequest.class);
 		register(ChannelOpenConfirmationMessage.class);
 		register(ChannelWindowsAdjustMessage.class);
 		register(ChannelSuccessMessage.class);

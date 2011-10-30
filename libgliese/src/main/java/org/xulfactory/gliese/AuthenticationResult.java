@@ -23,8 +23,11 @@ package org.xulfactory.gliese;
  */
 public class AuthenticationResult
 {
-	private boolean success;
-	private boolean partialSuccess;
+	public enum Status {
+		SUCCESS, PARTIAL_SUCCESS, FAILURE
+	}
+	
+	private Status status;
 	private String[] authenticationThatCanContinue;
 
 	static final AuthenticationResult success()
@@ -36,26 +39,36 @@ public class AuthenticationResult
 	{
 		return new AuthenticationResult(false, partial, authenticationThatCanContinue);
 	}
-
+	
 	private AuthenticationResult(boolean success, boolean partialSuccess, String[] authenticationThatCanContinue)
 	{
-		this.success = success;
-		this.partialSuccess = partialSuccess;
+		if (success) {
+			this.status = Status.SUCCESS;
+		} else if (isPartialSuccess()) {
+			this.status = Status.PARTIAL_SUCCESS;
+		} else {
+			this.status = Status.FAILURE;
+		}
 		this.authenticationThatCanContinue = authenticationThatCanContinue;
 	}
-
+	
 	public String[] getAuthenticationThatCanContinue()
 	{
 		return authenticationThatCanContinue;
 	}
-
+	
 	public boolean isPartialSuccess()
 	{
-		return partialSuccess;
+		return status == Status.PARTIAL_SUCCESS;
 	}
-
+	
 	public boolean isSuccess()
 	{
-		return success;
+		return status == Status.SUCCESS;
 	}
+
+	public Status getStatus()
+	{
+		return status;
+	} 
 }

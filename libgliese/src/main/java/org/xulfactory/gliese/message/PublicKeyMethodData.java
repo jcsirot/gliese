@@ -84,11 +84,12 @@ public class PublicKeyMethodData implements AuthenticationMethodData
 			Utils.encodeString(out, p.algorithm);
 			Utils.encodeBytes(out, p.pubkey);
 			if (p.signature != null) {
-				ByteArrayOutputStream baos
-					= new ByteArrayOutputStream();
-				Utils.encodeString(baos, p.algorithm);
-				Utils.encodeBytes(baos, p.signature);
-				Utils.encodeBytes(out, baos.toByteArray());
+//				ByteArrayOutputStream baos
+//					= new ByteArrayOutputStream();
+//				Utils.encodeString(baos, p.algorithm);
+//				Utils.encodeBytes(baos, p.signature);
+//				Utils.encodeBytes(out, baos.toByteArray());
+				Utils.encodeBytes(out, p.signature);
 			}
 		}
 	}

@@ -84,9 +84,16 @@ public class SSHConnection
 	public AuthenticationResult authenticate(String username, SSHPublicKey key, Signature signer)
 		throws SSHException
 	{
-		return authentication.authenticate(username, key, signer);
+		//return authentication.authenticate(username, key, signer);
+		throw new UnsupportedOperationException();
 	}
 
+	public AuthenticationResult authenticate(String username, KeyboardInteraction kbi)
+		throws SSHException
+	{
+		return authentication.authenticate(username, kbi);
+	}
+	
 	public SSHChannel openSession() throws SSHException
 	{
 		if (!isAuthenticated()) {
